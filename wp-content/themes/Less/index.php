@@ -7,8 +7,6 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
-<?php //bloginfo('atom_url'); ?>
-
 <?php wp_head(); ?>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:400,200,800" rel="stylesheet" type="text/css">
@@ -33,7 +31,7 @@
     </nav>
 </div>
 
-	<div id="bodydiv">
+<div id="bodydiv">
 
 	<header id="masthead" class="site-header" role="banner">
 		<div class="container">
