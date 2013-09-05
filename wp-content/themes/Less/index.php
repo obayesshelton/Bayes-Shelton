@@ -198,9 +198,9 @@
 		<?php } // end is_page(); ?>
 
 			<ul id="adverts">
-				<li><img src="http://s3.buysellads.com/1500/168792-1366821056.png"/></li>
-				<li class="middle"><img src="http://s3.buysellads.com/1616/163516-1363879499.png"/></li>
-				<li><img src="http://s3.buysellads.com/1616/29300-1277154828.png"/></li>
+				<li><a href="http://designmodo.com/shop/?u=536" target="_blank"><img src="http://designmodo.com/img/affiliate/pandora_180_150.jpg" border="0"/></a></li>
+				<li class="middle"><a href="http://designmodo.com/shop/?u=536" target="_blank"><img src="http://designmodo.com/img/affiliate/flatui_180_150.jpg" border="0"/></a></li>
+				<li><a href="http://designmodo.com/shop/?u=536" target="_blank"><img src="http://designmodo.com/img/affiliate/shop_180_150.jpg" border="0"/></a></li>
 			</ul>
 
 
