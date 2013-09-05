@@ -23,7 +23,7 @@ register_nav_menus(
 /*-----------------------------------------------------------------------------------*/
 
 function less_scripts()  { 
-
+	
 	// theme styles
 	wp_enqueue_style( 'less-style', get_template_directory_uri() . '/style.css', '10000', 'all' );
 			

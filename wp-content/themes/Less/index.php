@@ -7,7 +7,12 @@
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
+<?php //bloginfo('atom_url'); ?>
+
 <?php wp_head(); ?>
+
+<link href="https://fonts.googleapis.com/css?family=Raleway:400,200,800" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" type="text/javascript" async=""></script>
 
 </head>
 
@@ -20,192 +25,210 @@
 	/*-----------------------------------------------------------------------------------*/
 ?>
 
-<header id="masthead" class="site-header" role="banner">
+<div id="tab_container">
+    <nav id="tabs">
+        <ul id="nav" class="sticky">
+            <li class="inactive"><a href="#"><?php bloginfo( 'name' ); ?> &mdash; <span><?php echo get_bloginfo( 'description' ); ?></a></li>
+        </ul>
+    </nav>
+</div>
+
+	<div id="bodydiv">
+
+	<header id="masthead" class="site-header" role="banner">
+		<div class="container">
+			
+			<nav role="navigation" class="site-navigation main-navigation">
+				<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
+			</nav><!-- .site-navigation .main-navigation -->
+			
+			<div class="clear"></div>
+		</div><!--/container -->
+			
+	</header><!-- #masthead .site-header -->
+
 	<div class="container">
+
+		<div id="primary">
+			<div id="content" role="main">
+
+
+	<?php
+		/*-----------------------------------------------------------------------------------*/
+		/* Start Home loop
+		/*-----------------------------------------------------------------------------------*/
 		
-		<div id="brand">
-			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a> &mdash; <span><?php echo get_bloginfo( 'description' ); ?></span></h1>
-		</div><!-- /brand -->
-	
-		<nav role="navigation" class="site-navigation main-navigation">
-			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
-		</nav><!-- .site-navigation .main-navigation -->
+		if( is_home() || is_archive() ) {
 		
-		<div class="clear"></div>
-	</div><!--/container -->
-		
-</header><!-- #masthead .site-header -->
+	?>
+				<?php if ( have_posts() ) : ?>
 
-<div class="container">
+					<?php while ( have_posts() ) : the_post(); ?>
 
-	<div id="primary">
-		<div id="content" role="main">
-
-
-<?php
-	/*-----------------------------------------------------------------------------------*/
-	/* Start Home loop
-	/*-----------------------------------------------------------------------------------*/
-	
-	if( is_home() || is_archive() ) {
-	
-?>
-			<?php if ( have_posts() ) : ?>
-
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<article class="post">
-					
-						<h1 class="title">
-							<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
-								<?php the_title() ?>
-							</a>
-						</h1>
-						<div class="clear"></div>
-						<div class="post-meta">
-							By: <?php the_author() ?> &bull; <?php the_date() ?> &bull; <?php echo get_the_category_list(); ?>
-						</div><!--/post-meta -->
+						<article class="post">
 						
-						<div class="the-content">
-							<?php the_content( 'Continue...' ); ?>
-							
-							<?php wp_link_pages(); ?>
-
-							<div class="more-link"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">Read More</a></div>
-
+							<h1 class="title">
+								<a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">
+									<?php the_title() ?>
+								</a>
+							</h1>
 							<div class="clear"></div>
-							<div class="clear"></div>
-
-						</div><!-- the-content -->
-						
-						<div class="meta clearfix">
+							<div class="post-meta">
+								By: <?php the_author() ?> &bull; <?php the_date() ?> &bull; <?php echo get_the_category_list(); ?>
+							</div><!--/post-meta -->
 							
-						</div><!-- Meta -->
-						
+							<div class="the-content">
+								<?php the_content( 'Continue...' ); ?>
+								
+								<?php wp_link_pages(); ?>
+
+								<div class="more-link"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">Read More</a></div>
+
+								<div class="clear"></div>
+								<div class="clear"></div>
+
+							</div><!-- the-content -->
+							
+							<div class="meta clearfix">
+								
+							</div><!-- Meta -->
+							
+						</article>
+
+					<?php endwhile; ?>
+					
+					<!-- pagintation -->
+					<div id="pagination" class="clearfix">
+						<div class="past-page"><?php previous_posts_link( 'Newer &raquo;' ); ?></div>
+						<div class="next-page"><?php next_posts_link( ' &laquo; Older' ); ?></div>
+					</div><!-- pagination -->
+
+
+				<?php else : ?>
+					
+					<article class="post error">
+						<h1 class="404">Nothing posted yet</h1>
 					</article>
 
-				<?php endwhile; ?>
-				
-				<!-- pagintation -->
-				<div id="pagination" class="clearfix">
-					<div class="past-page"><?php previous_posts_link( 'Newer &raquo;' ); ?></div>
-					<div class="next-page"><?php next_posts_link( ' &laquo; Older' ); ?></div>
-				</div><!-- pagination -->
+				<?php endif; ?>
 
+			
+		<?php } //end is_home(); ?>
 
-			<?php else : ?>
-				
-				<article class="post error">
-					<h1 class="404">Nothing posted yet</h1>
-				</article>
-
-			<?php endif; ?>
-
+	<?php
+		/*-----------------------------------------------------------------------------------*/
+		/* Start Single loop
+		/*-----------------------------------------------------------------------------------*/
 		
-	<?php } //end is_home(); ?>
-
-<?php
-	/*-----------------------------------------------------------------------------------*/
-	/* Start Single loop
-	/*-----------------------------------------------------------------------------------*/
-	
-	if( is_single() ) {
-?>
+		if( is_single() ) {
+	?>
 
 
-			<?php if ( have_posts() ) : ?>
+				<?php if ( have_posts() ) : ?>
 
-				<?php while ( have_posts() ) : the_post(); ?>
+					<?php while ( have_posts() ) : the_post(); ?>
 
-					<article class="post">
-					
-						<h1 class="title"><?php the_title() ?></h1>
-						<div class="post-meta">
-							By: <?php the_author() ?> &bull; <?php the_date() ?> &bull; <?php echo get_the_category_list(); ?> &bull; <?php comments_popup_link( __( 'Comment', 'less' ), __( '1 Comment', 'less' ), __( '% Comments', 'less' ) ); ?>
-						</div><!--/post-meta --><!--/post-meta -->
+						<article class="post">
 						
-						<div class="the-content">
-							<?php the_content( 'Continue...' ); ?>
+							<h1 class="title"><?php the_title() ?></h1>
+							<div class="post-meta">
+								By: <?php the_author() ?> &bull; <?php the_date() ?> &bull; <?php echo get_the_category_list(); ?> &bull; <?php comments_popup_link( __( 'No Comments', 'less' ), __( '1 Comment', 'less' ), __( '% Comments', 'less' ) ); ?>
+							</div><!--/post-meta --><!--/post-meta -->
 							
-							<?php wp_link_pages(); ?>
-						</div><!-- the-content -->
-						
+							<div class="the-content">
+								<?php the_content( 'Continue...' ); ?>
+								
+								<?php wp_link_pages(); ?>
+							</div><!-- the-content -->
+							
+						</article>
+
+					<?php endwhile; ?>
+					
+					<?php
+						// If comments are open or we have at least one comment, load up the comment template
+						if ( comments_open() || '0' != get_comments_number() )
+							comments_template( '', true );
+					?>
+
+
+				<?php else : ?>
+					
+					<article class="post error">
+						<h1 class="404">Nothing posted yet</h1>
 					</article>
 
-				<?php endwhile; ?>
-				
-				<?php
-					// If comments are open or we have at least one comment, load up the comment template
-					if ( comments_open() || '0' != get_comments_number() )
-						comments_template( '', true );
-				?>
+				<?php endif; ?>
 
 
-			<?php else : ?>
-				
-				<article class="post error">
-					<h1 class="404">Nothing posted yet</h1>
-				</article>
+		<?php } //end is_single(); ?>
+		
+	<?php
+		/*-----------------------------------------------------------------------------------*/
+		/* Start Page loop
+		/*-----------------------------------------------------------------------------------*/
+		
+		if( is_page()) {
+	?>
 
-			<?php endif; ?>
+				<?php if ( have_posts() ) : ?>
 
+					<?php while ( have_posts() ) : the_post(); ?>
 
-	<?php } //end is_single(); ?>
-	
-<?php
-	/*-----------------------------------------------------------------------------------*/
-	/* Start Page loop
-	/*-----------------------------------------------------------------------------------*/
-	
-	if( is_page()) {
-?>
-
-			<?php if ( have_posts() ) : ?>
-
-				<?php while ( have_posts() ) : the_post(); ?>
-
-					<article class="post">
-					
-						<h1 class="title"><?php the_title() ?></h1>
+						<article class="post">
 						
-						<div class="the-content">
-							<?php the_content(); ?>
+							<h1 class="title"><?php the_title() ?></h1>
 							
-							<?php wp_link_pages(); ?>
-						</div><!-- the-content -->
-						
+							<div class="the-content">
+								<?php the_content(); ?>
+								
+								<?php wp_link_pages(); ?>
+							</div><!-- the-content -->
+							
+						</article>
+
+					<?php endwhile; ?>
+
+				<?php else : ?>
+					
+					<article class="post error">
+						<h1 class="404">Nothing posted yet</h1>
 					</article>
 
-				<?php endwhile; ?>
+				<?php endif; ?>
 
-			<?php else : ?>
-				
-				<article class="post error">
-					<h1 class="404">Nothing posted yet</h1>
-				</article>
+		<?php } // end is_page(); ?>
 
-			<?php endif; ?>
+			<ul id="adverts">
+				<li><img src="http://s3.buysellads.com/1500/168792-1366821056.png"/></li>
+				<li class="middle"><img src="http://s3.buysellads.com/1616/163516-1363879499.png"/></li>
+				<li><img src="http://s3.buysellads.com/1616/29300-1277154828.png"/></li>
+			</ul>
 
-	<?php } // end is_page(); ?>
 
-		</div><!-- #content .site-content -->
-	</div><!-- #primary .content-area -->
+			<div class="clear"></div>
 
-</div><!-- / container-->
+			</div><!-- #content .site-content -->
 
-<?php
-	/*-----------------------------------------------------------------------------------*/
-	/* Start Footer
-	/*-----------------------------------------------------------------------------------*/
-?>
+		</div><!-- #primary .content-area -->
 
-<footer class="site-footer" role="contentinfo">
-	<div class="site-info container">
-		You don’t need permission to reprint any articles on Bayes-Shelton — We need to make our children more knowledgeable.
-	</div><!-- .site-info -->
-</footer><!-- #colophon .site-footer -->
+	</div><!-- / container-->
 
-<?php wp_footer(); ?>
+	<?php
+		/*-----------------------------------------------------------------------------------*/
+		/* Start Footer
+		/*-----------------------------------------------------------------------------------*/
+	?>
+
+	<footer class="site-footer" role="contentinfo">
+		<div class="site-info container" style="width: 680px">
+			You don’t need permission to reprint any articles on Bayes-Shelton — We need to make our children more knowledgeable.
+		</div><!-- .site-info -->
+	</footer><!-- #colophon .site-footer -->
+
+	<?php wp_footer(); ?>
+
+</div>
 
 </body>
 </html>
