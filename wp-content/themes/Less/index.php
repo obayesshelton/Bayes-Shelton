@@ -23,6 +23,8 @@
 
 </script>
 
+<meta name="google-site-verification" content="dRRY3yQlhnEVLCJUubwXyyhdG5HobGdz_UiTZ-30h1A" />
+
 </head>
 
 <body <?php body_class(); ?>>
