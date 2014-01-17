@@ -13,7 +13,7 @@
 <div class="blog-post">
     <div class="blog-right">
         <h3>
-            <a href="<?php echo esc_url( get_post_format_link( 'link' ) ); ?>" title="<?php the_title(); ?>">
+            <a href="?php the_permalink(); ?>" title="<?php the_title(); ?>">
                 <i class="fa fa-code fa-fw"></i>
                 <?php the_title(); ?>
             </a>

@@ -9,8 +9,15 @@ $('.contact-btn').click(function() {
   $('#contact-box').addClass('show-contact');
 });
 
+$('.search-btn').click(function() {
+  $('#search-box').addClass('show-search');
+  $('#search-box input').focus();
+});
+
 $('.close-me').click(function() {
   $('#contact-box').removeClass('show-contact');
+  $('#search-box').removeClass('show-search');
+  $('#search-box input').val('');
 });
 
 // media query event handler

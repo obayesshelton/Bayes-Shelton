@@ -24,11 +24,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 		<title>Oliver &amp; bayes</title>
 		<link rel="shortcut icon" href="">
-		<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css" />
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <script src="<?php echo get_template_directory_uri(); ?>/js/lib/jquery.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/modernizr.custom.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints.min.js"></script>
 		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints-sticky.min.js"></script>
@@ -52,10 +52,10 @@
 						<img src="<?php echo get_template_directory_uri(); ?>/images/me.jpg" data-stellar-ratio="1.2" />
 					</div>
 				
-			<h1 class="uppercase">yo yo yo motherfuckers...</h1>
+			<h1 class="uppercase">Oliver Bayes-Shelton...</h1>
 			<hr>
 				<p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam iaculis, dolor id sagittis venenatis, ante enim bibendum dolor, ut mattis lectus est at augue. Aliquam pretium vulputate blandit. In ac suscipit ligula.</p><p> Etiam eleifend venenatis ullamcorper. Cras in vulputate orci. Proin ut pulvinar tellus. Sed sit amet sem dignissim, molestie risus ut, lobortis lectus. In elementum odio at nunc fringilla, sit amet blandit leo tempor. Vestibulum vitae urna ligula. Nam quis urna augue. Vestibulum non elit lectus. Nam dictum aliquet pellentesque. Pellentesque euismod diam tincidunt, ultricies turpis nec, aliquam ipsum. Nunc commodo semper neque quis ornare. Maecenas quis arcu at velit convallis consequat. Curabitur ultricies faucibus tortor a auctor.
+                    I'm a dedicated self learner that has a passion for technology. I have been lucky enough to work with some amazing teams which have developed innovative, engaging and life changing software. I have been responsible for software development, planning and management of projects as well as the planning and implementation of the infrastructure. I have an interest in web and non-web systems, open source projects and the technology community in general.
                 </p>
 
         </div>
@@ -68,18 +68,41 @@
 <h1><i class="fa fa-github"></i></h1>
 <hr>
 <ul>
-	<li class="g-project">
-		<span class="title left">hello project</span><span class="progress-wrapper right"><span class="progress-bar green"><span class="texter">60</span></span></span><span class="info right"><b>50</b> commits  &middot; updated 2 mins ago</span>
-	</li>
-	<li class="g-project">
-		<span class="title left">ball buster 2000</span><span class="tags-area"><span class="tag">js</span></span><span class="progress-wrapper right"><span class="progress-bar yellow"><span class="texter">30</span></span></span><span class="info right"><b>10</b> commits &middot; updated 1 day ago </span>
-	</li>
-	<li class="g-project">
-		<span class="title left">shit face</span><span class="tags-area"><span class="tag">ruby</span></span><span class="progress-wrapper right"><span class="progress-bar blue"><span class="texter">100</span></span></span><span class="info right"><b>200</b> commits &middot; updated 5 days ago </span>
-	</li>
-	<li class="g-project">
-		<span class="title left">n00b code</span><span class="tags-area"><span class="tag">php</span></span><span class="progress-wrapper right"><span class="progress-bar pink"><span class="texter">50</span></span></span><span class="info right"><b>50</b> commits &middot; updated 1 month ago </span>
-	</li>
+    <?php
+
+    /*
+ * How to use: simply uncomment and comment out the unnecessary command to test
+ */
+
+    include_once "github/githubapi.php";
+    include_once "github/config.php";
+
+    $api = new githubApi($config);
+
+    $res = $api->apiCall("/user/repos");
+    if ($res) {
+
+        foreach($res as $repo) {
+
+    ?>
+            <li class="g-project">
+                <span class="title left"><?php echo $repo['name']; ?></span>
+                <span class="progress-wrapper right">
+                    <span class="progress-bar green">
+                        <span class="texter"><?php echo rand(0, 100);?></span>
+                    </span>
+                </span>
+                <span class="info right">
+                    <b><?php echo $repo['language']; ?></b>  &middot; updated <?php $time = $repo['updated_at']; $timeRaw = explode('T', $time); echo $timeRaw[0] ?>
+                </span>
+            </li>
+    <?php
+
+        }
+
+    }
+
+    ?>
 </ul>
 
 
@@ -91,25 +114,22 @@
 <hr>
 
     <?php
-    if ( have_posts() ) :
-        // Start the Loop.
-        while ( have_posts() ) : the_post();
 
-            /*
-             * Include the post format-specific template for the content. If you want to
-             * use this in a child theme, then include a file called called content-___.php
-             * (where ___ is the post format) and that will be used instead.
-             */
-            get_template_part( 'content_home', get_post_format() );
+        $args = array( 'posts_per_page' => 5, 'offset'=> 1, 'category' => 1 );
 
-        endwhile;
+        $myposts = get_posts( $args );
+        foreach ($myposts as $post) : setup_postdata($post); ?>
+            <div class="blog-post">
 
-    else :
-        // If no content, include the "No posts found" template.
-        get_template_part( 'content', 'none' );
-
-    endif;
-    ?>
+                <div class="blog-right">
+                    <h3><i class="fa fa-code fa-fw"></i><?php the_title(); ?></h3>
+                    <span class="posted">posted on <?php the_date(); ?></span>
+                    <p><?php the_title(); ?></p>
+                    <span class="read-more"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">mead more<i class="fa fa-long-arrow-right"></i></a></span>
+                </div>
+            </div>
+        <?php endforeach;
+        wp_reset_postdata();?>
 
 </div>
 
