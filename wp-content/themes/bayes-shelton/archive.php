@@ -1,74 +1,140 @@
 <?php
 /**
- * The template for displaying Archive pages
+ * The main template file
  *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
- *
- * If you'd like to further customize these archive views, you may create a
- * new template file for each specific one. For example, Twenty Fourteen
- * already has tag.php for Tag archives, category.php for Category archives,
- * and author.php for Author archives.
+ * This is the most generic template file in a WordPress theme and one
+ * of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query,
+ * e.g., it puts together the home page when no home.php file exists.
  *
  * @link http://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Twenty_Fourteen
- * @since Twenty Fourteen 1.0
+ * @subpackage Bayes_Shelton
+ * @since Bayes Shelton 1.0
+ * Template Name: index
  */
 
-get_header(); ?>
+?>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oliver &amp; bayes</title>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/blog.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/modernizr.custom.js"></script>
+    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints.min.js"></script>
+    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints-sticky.min.js"></script>
+    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/core.js"></script>
+    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.stellar.min.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?autoload=true&amp;skin=sunburst&amp;lang=css" defer="defer"></script>
+</head>
+<body>
 
-	<section id="primary" class="content-area">
-		<div id="content" class="site-content" role="main">
+<div id="search-box">
+    <div id="search-area">
+        <input clsss="big-search" />
+        <h3 class="helper-search">Type to begin search</h3>
+        <div class="close-area">
+            <span class="close-me"><i class="fa fa-times"></i> exit search</span>
+        </div>
+    </div>
+</div>
 
-			<?php if ( have_posts() ) : ?>
+<div class="container">
+    <section id="heading">
 
-			<header class="page-header">
-				<h1 class="page-title">
-					<?php
-						if ( is_day() ) :
-							printf( __( 'Daily Archives: %s', 'twentyfourteen' ), get_the_date() );
+        <section id="#header_nav" class="header" >
+            <span class="anim"></span>
+            <span class="take-me-uptop" onclick="toTop()"><i class="fa fa-long-arrow-up"></i>top</span>
+            <span class="search-btn" ><i class="fa fa-search"></i></span>
+        </section>
 
-						elseif ( is_month() ) :
-							printf( __( 'Monthly Archives: %s', 'twentyfourteen' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'twentyfourteen' ) ) );
+    </section>
 
-						elseif ( is_year() ) :
-							printf( __( 'Yearly Archives: %s', 'twentyfourteen' ), get_the_date( _x( 'Y', 'yearly archives date format', 'twentyfourteen' ) ) );
+    <div class="inner">
 
-						else :
-							_e( 'Archives', 'twentyfourteen' );
+    </div>
 
-						endif;
-					?>
-				</h1>
-			</header><!-- .page-header -->
+    <section id="content-section">
+        <div class="inner">
 
-			<?php
-					// Start the Loop.
-					while ( have_posts() ) : the_post();
+            <div class="blog-posts">
 
-						/*
-						 * Include the post format-specific template for the content. If you want to
-						 * use this in a child theme, then include a file called called content-___.php
-						 * (where ___ is the post format) and that will be used instead.
-						 */
-						get_template_part( 'content', get_post_format() );
+                <?php
 
-					endwhile;
-					// Previous/next page navigation.
-					twentyfourteen_paging_nav();
+                /**/
+                $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date ASC");
+                foreach($years as $year) :
 
-				else :
-					// If no content, include the "No posts found" template.
-					get_template_part( 'content', 'none' );
+                    $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '".$year."' ORDER BY post_date ASC");
+                    foreach($months as $month) :
+                        ?>
 
-				endif;
-			?>
-		</div><!-- #content -->
-	</section><!-- #primary -->
+                        <h1><i class="fa fa-calendar"></i><?php echo date( 'F', mktime(0, 0, 0, $month) );?></h1>
+                        <hr>
 
-<?php
-get_sidebar( 'content' );
-get_sidebar();
-get_footer();
+                        <?php
+                        $theids = $wpdb->get_results("SELECT ID, post_title, post_date FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date)= '".$month."' AND YEAR(post_date) = '".$year."' ORDER BY post_date ASC");
+                        foreach ($theids as $theid):
+                            ?>
+
+                            <div class="blog-post">
+                                <div class="blog-right">
+                                    <h3><i class="fa fa-code fa-fw"></i><?php echo $theid->post_title; ?></h3>
+                                    <span class="posted">posted on <?php echo $theid->post_date ;?></span>
+                                </div>
+                            </div>
+
+                        <?php
+                        endforeach;
+                        ?>
+
+                    <?php endforeach;?>
+
+                <?php endforeach; ?>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="footer">
+        <div class="inner">
+            <h3> am i doing something you like? <span><a class="contact-btn">contact me</a></h3>
+            <a href="http://twitter.com"><i class="fa fa-twitter fa-fw"></i></a>
+
+            <a href="http://github.com"><i class="fa fa-github fa-fw"></i></a>
+            <a href="mailto:email@email.com"><i class="fa fa-envelope fa-fw"></i></a>
+            <a href="http://linkedin.com"><i class="fa fa-linkedin fa-fw"></i></a>
+        </div>
+    </div>
+
+</div>
+<div id="contact-box">
+    <div id="contact-area">
+        <h1>Let me know...</h1>
+        <hr>
+        <p>Fill in the form below and i will get back to you.</p>
+        <form>
+            <ul>
+                <li class="half"><input placeholder="your name" /></li>
+                <li class="half"><input placeholder="your e-mail" /></li>
+                <li><textarea placeholder="your message"></textarea></li>
+                <li><button class="submit-contact">Send it to me</button></li>
+                <li class="close-me"><i class="fa fa-times"></i> close me</li>
+            </ul>
+        </form>
+    </div>
+</div>
+</body>
+</html>

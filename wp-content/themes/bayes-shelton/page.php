@@ -133,7 +133,7 @@
 
 </div>
 
-<div id="tweet" class="some-area gh" >
+<!--<div id="tweet" class="some-area gh" >
 <h1><i class="fa fa-twitter"></i></h1>
 <hr>
 <ul>
@@ -147,7 +147,7 @@
 
 
 
-</div>
+</div>-->
 
 
 

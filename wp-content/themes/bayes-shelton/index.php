@@ -89,7 +89,7 @@
 
                                     <div class="blog-post">
                                         <div class="blog-right">
-                                            <h3><i class="fa fa-code fa-fw"></i><?php echo $theid->post_title; ?></h3>
+                                            <a href=""><h3><i class="fa fa-code fa-fw"></i><?php echo $theid->post_title; ?></h3></a>
                                             <span class="posted">posted on <?php echo $theid->post_date ;?></span>
                                         </div>
                                     </div>
