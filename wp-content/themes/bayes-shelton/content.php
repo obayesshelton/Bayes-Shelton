@@ -29,8 +29,8 @@
 
         <div class="inner">
 
-            <?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentytwelve' ) ); ?>
-            <?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?>
+            <p><?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentytwelve' ) ); ?></p>
+            <p><?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?></p>
             <p>Hope you enjoyed this and learned something new!</p>
 
         <div class="more_info">
@@ -42,9 +42,9 @@
                 global $post;
                 $tags = wp_get_post_tags($post->ID);
                 foreach ($tags as $tag) {
-                    $html = '<li><a href="/tag/' . $tag->slug . '">';
+                    $html = '<li>' . $tag->slug;
                     $html .= $tag->name;
-                    $html .= '</a></li>';
+                    $html .= '</li>';
                     echo $html;
                 }
                 ?>

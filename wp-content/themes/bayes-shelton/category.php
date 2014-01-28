@@ -93,23 +93,6 @@ get_header(); ?>
                     ?>
 
                 </ul>
-                <h1><i class="fa fa-tag"></i>Tags</h1>
-                <hr>
-                <ul class="tags">
-                    <li></li>
-                    <?php
-                    $tags = get_tags();
-                    $html = '<div class="post_tags">';
-                    foreach ( $tags as $tag ) {
-                        $tag_link = get_tag_link( $tag->term_id );
-                        $html .= '<li><a href="/tag/' . $tag->slug . '" title="$tag->name Tag" class="$tag->slug">';
-                        $html .= $tag->name . '</a>';
-                    }
-                    $html .= '</li>';
-                    echo $html;
-                    ?>
-                </ul>
-
 
             </div>
         </div>
