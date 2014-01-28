@@ -15,27 +15,8 @@
  * Template Name: Index
  */
 
-?>
-<!DOCTYPE html>
-<html lang="en" class="no-js">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Oliver &amp; bayes</title>
-		<link rel="shortcut icon" href="">
-		<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/css/style.css" />
-		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Ubuntu:400,700' rel='stylesheet' type='text/css'>
-		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/modernizr.custom.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints.min.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints-sticky.min.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/core.js"></script>
-		<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.stellar.min.js"></script>
-	</head>
-	<body>
+get_header(); ?>
+
 		<div class="container">
 		    <div id="header">
 			    <section id="heading" >
@@ -142,34 +123,5 @@
 </div>
 
 			</section>
-
-			<div class="footer">
-			<div class="inner">
-			<h3> am i doing something you like? <span><a class="contact-btn">contact me</a></h3>
-			<a href="http://twitter.com"><i class="fa fa-twitter fa-fw"></i></a>
-
-	<a href="http://github.com"><i class="fa fa-github fa-fw"></i></a>
-	<a href="mailto:email@email.com"><i class="fa fa-envelope fa-fw"></i></a>
-	<a href="http://linkedin.com"><i class="fa fa-linkedin fa-fw"></i></a>
-</div>
-</div>
-			
-</div>
-<div id="contact-box">
-	<div id="contact-area">
-		<h1>Let me know...</h1>
-		<hr>
-		<p>Fill in the form below and i will get back to you.</p>
-		<form>
-			<ul>
-				<li class="half"><input placeholder="your name" /></li>
-				<li class="half"><input placeholder="your e-mail" /></li>
-				<li><textarea placeholder="your message"></textarea></li>
-				<li><button class="submit-contact">Send it to me</button></li>
-				<li class="close-me"><i class="fa fa-times"></i> close me</li>
-			</ul>
-		</form>
-	</div>
-</div>
-	</body>
-</html>
+<?php
+get_footer();

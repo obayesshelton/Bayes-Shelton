@@ -10,4 +10,8 @@
  */
 ?>
 
-FOOOO
+<div class="some-area">
+
+
+
+</div>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="http://local.bayes-shelton.com/wp-content/plugins/google-sitemap-generator/sitemap.xsl"?><!-- generator="wordpress/3.8" -->
 <!-- sitemap-generator-url="http://www.arnebrachhold.de" sitemap-generator-version="3.4" -->
-<!-- generated-on="January 27, 2014 8:40 pm" -->
+<!-- generated-on="January 28, 2014 7:54 pm" -->
 <!-- Debug: Total comment count: 0 -->
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">	<url>
 		<loc>http://local.bayes-shelton.com/</loc>
@@ -9,6 +9,13 @@
 		<priority>1.0</priority>
 	</url>
 <!-- Debug: Start Postings -->
+<!-- Debug: Priority report of postID 48: Comments: 0 of 0 = 0 points -->
+	<url>
+		<loc>http://local.bayes-shelton.com/zxczxczxczxc/</loc>
+		<lastmod>2014-01-28T19:53:29+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.2</priority>
+	</url>
 <!-- Debug: Priority report of postID 41: Comments: 0 of 0 = 0 points -->
 	<url>
 		<loc>http://local.bayes-shelton.com/phalcon-volt-error/</loc>
