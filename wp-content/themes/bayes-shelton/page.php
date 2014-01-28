@@ -74,7 +74,7 @@
  * How to use: simply uncomment and comment out the unnecessary command to test
  */
 
-    include_once "github/githubapi.php";
+    /*include_once "github/githubapi.php";
     include_once "github/config.php";
 
     $api = new githubApi($config);
@@ -86,7 +86,11 @@
 
     ?>
             <li class="g-project">
-                <span class="title left"><?php echo $repo['name']; ?></span>
+                <span class="title left">
+                    <a href="<?php echo $repo['html_url']; ?>" target="_blank" title="<?php echo $repo['name']; ?>">
+                        <?php echo $repo['name']; ?>
+                     </a>
+                </span>
                 <span class="progress-wrapper right">
                     <span class="progress-bar green">
                         <span class="texter"><?php echo rand(0, 100);?></span>
@@ -100,7 +104,7 @@
 
         }
 
-    }
+    }*/
 
     ?>
 </ul>
@@ -110,7 +114,7 @@
 </div>
 
 <div class="some-area">
-<h1><i class="fa fa-bullhorn"></i></h1>
+<a hrf="/blog/"><h1><i class="fa fa-bullhorn"></i></h1></a>
 <hr>
 
     <?php
@@ -122,36 +126,20 @@
             <div class="blog-post">
 
                 <div class="blog-right">
+
                     <h3><i class="fa fa-code fa-fw"></i><?php the_title(); ?></h3>
                     <span class="posted">posted on <?php the_date(); ?></span>
-                    <p><?php the_title(); ?></p>
-                    <span class="read-more"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">mead more<i class="fa fa-long-arrow-right"></i></a></span>
+                    <br clear="both"/>
+                    <p><?php the_excerpt(); ?></p>
+                    <br clear="both"/>
+                    <span class="read-more"><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>">read more<i class="fa fa-long-arrow-right"></i></a></span>
+
                 </div>
             </div>
         <?php endforeach;
         wp_reset_postdata();?>
 
 </div>
-
-<!--<div id="tweet" class="some-area gh" >
-<h1><i class="fa fa-twitter"></i></h1>
-<hr>
-<ul>
-	<li class="tweet">
-		<p>the main body of the tweet ill go here</p>
-		<span class="posted">
-			tweeted 5 days ago
-		</span>
-	</li>
-</ul>
-
-
-
-</div>-->
-
-
-
-
 
 			</section>
 

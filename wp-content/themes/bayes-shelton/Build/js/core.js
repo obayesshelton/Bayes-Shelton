@@ -5,26 +5,6 @@ function toTop() {
 
 $(document).ready(function() {
 
-$('.contact-btn').click(function() {
-  $('#contact-box').addClass('show-contact');
-});
-
-$('.sub-btn').click(function() {
-  $('#sub-box').addClass('show-sub');
-});
-
-$('.search-btn').click(function() {
-  $('#search-box').addClass('show-search');
-  $('#search-box input').focus();
-});
-
-$('.close-me').click(function() {
-  $('#contact-box').removeClass('show-contact');
-  $('#search-box').removeClass('show-search');
-  $('#sub-box').removeClass('show-sub');
-  $('#search-box input, #sub-box input').val('');
-});
-
 // media query event handler
 if (matchMedia) {
 	var mq = window.matchMedia("(min-width: 500px)");

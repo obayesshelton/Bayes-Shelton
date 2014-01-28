@@ -12,7 +12,6 @@
  * @package WordPress
  * @subpackage Bayes_Shelton
  * @since Bayes Shelton 1.0
- * Template Name: index
  */
 
 ?>
@@ -70,41 +69,26 @@
 
             <div class="blog-posts">
 
-                <?php
+                <?php if ( have_posts() ) :
 
-                /**/
-                $years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date ASC");
-                foreach($years as $year) :
+                    // Start the Loop.
+                    while ( have_posts() ) : the_post();
 
-                    $months = $wpdb->get_col("SELECT DISTINCT MONTH(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND YEAR(post_date) = '".$year."' ORDER BY post_date ASC");
-                    foreach($months as $month) :
-                        ?>
+                        /*
+                         * Include the post format-specific template for the content. If you want to
+                         * use this in a child theme, then include a file called called content-___.php
+                         * (where ___ is the post format) and that will be used instead.
+                         */
+                        get_template_part('content_list', get_post_format());
 
-                        <div class="some-area">
-                        <h1><i class="fa fa-calendar"></i><?php echo date( 'F', mktime(0, 0, 0, $month) );?></h1>
-                        <hr>
+                    endwhile;
 
-                        <?php
-                        $theids = $wpdb->get_results("SELECT ID, post_title, post_date FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND MONTH(post_date)= '".$month."' AND YEAR(post_date) = '".$year."' ORDER BY post_date ASC");
-                        foreach ($theids as $theid):
-                            ?>
+                else :
 
-                            <div class="blog-post">
-                                <div class="blog-right">
-                                    <a href="<?php echo get_permalink( $theid->ID ); ?>"><h3><i class="fa fa-code fa-fw"></i><?php echo $theid->post_title; ?></h3></a>
-                                    <span class="posted">posted on <?php echo $theid->post_date ;?></span>
-                                </div>
-                            </div>
+                    echo "NONE";
 
-                        <?php
-                        endforeach;
-                        ?>
-
-                        </div>
-
-                    <?php endforeach;?>
-
-                <?php endforeach; ?>
+                endif;
+                ?>
 
             </div>
 
@@ -146,12 +130,6 @@
 
             </div>
         </div>
-
-
-
-
-
-
 
     </section>
 

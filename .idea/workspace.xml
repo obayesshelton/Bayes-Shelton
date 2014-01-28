@@ -2,422 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f11202b4-b274-4902-b725-4837646b2ec0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/css/colors-classic.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/css/colors-classic.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/css/colors-fresh.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/css/colors-fresh.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-dark-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-dark-vs-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-dark-vs.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-dark.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-pr-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-pr.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-vs-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/arrows-vs.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/bubble_bg-rtl-2x.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/bubble_bg-rtl.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/menu-shadow-rtl.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/menu-shadow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/press-this-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/press-this.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/stars-rtl-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/stars-rtl.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/welcome-icons-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/welcome-icons.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wordpress-logo-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wp-badge-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wp-badge.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wp-logo-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wp-logo-vs-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wp-logo-vs.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/images/wp-logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/js/cat.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/js/cat.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/js/categories.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/js/categories.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/js/custom-fields.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-admin/js/custom-fields.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/JSON.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_class.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_feature_manager.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_functions.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_module-rtl.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_module.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_module.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_module_class.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_module_manager.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_options.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_performance.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_sitemap.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/aioseop_utility.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-bg_BG.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-bg_NO.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-cs_CZ.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-da_DK.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-de_DE.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-es_ES.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-fa_IR.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-fr_FR.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-he_IL.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-hu_HU.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-it_IT.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-ja.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-ko_KR.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-nl_NL.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-pl_PL.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-pt_BR.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-ru_RU.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-sk_SK.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-tr_TR.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-uk.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-zh_CN.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack-zh_TW.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/all_in_one_seo_pack.pot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Default-BW-Retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Default-BW-Standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Default-Color-Retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Default-Color-Standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Hostgator--AN-9-8-2013-445x220.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Performance-BW-Retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Performance-BW-Standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Performance-Color-Retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/Performance-Color-Standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/XMLSitemaps-BW-Retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/XMLSitemaps-BW-Standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/XMLSitemaps-Color-Retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/XMLSitemaps-Color-Standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/accept.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/activity.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/amazon.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/cog_edit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/delete.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/donate.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/facebook-follow-retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/facebook-follow-standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/headwaybanner.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/shield-sprite-16.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/shield-sprite-32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/shield32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/shield32fade.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/shield64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/twitter-follow-retina.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/twitter-follow-standard.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/twitter.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/update32.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/images/update64.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/quickedit_functions.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/readme.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/sitemap.xsl" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-seo-pack/wpml-config.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/general/wp-security-list-table.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/index.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-admin-init.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-admin-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-blacklist-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-dashboard-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-database-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-filescan-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-filesystem-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-firewall-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-list-acct-activity.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-list-comment-spammer-ip.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-list-locked-ip.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-list-login-fails.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-maintenance-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-settings-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-spam-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-user-accounts-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-user-login-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/admin/wp-security-whois-menu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/backups/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/grade-system/wp-security-feature-item-manager.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/grade-system/wp-security-feature-item.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/index.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-backup.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-config.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-configure-settings.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-cronjob-handler.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-debug-logger.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-file-scan.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-general-init-tasks.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-installer.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-user-login.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-utility-file.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-utility-htaccess.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-utility-ip-address.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/classes/wp-security-utility.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/css/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/css/wp-security-admin-styles.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/css/wp-security-site-lockout-page.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/arrow.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/error.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/feature-difficulty-badge-bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/feature-points-badge-bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/form_bg.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/info-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/loading.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/plugin-icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/plugin-icon2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/shield-info-icon-36.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/shield-security-icon-36.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/images/success.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/js/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/js/password-strength-tool.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/js/wp-security-admin-script.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/languages/aiowpsecurity.pot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/handler.template.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/npdata.ser" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ae.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.aero.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ag.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.asia.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.at.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.au.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.be.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.biz.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.br.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ca.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.cat.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ch.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.cl.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.client.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.cn.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.co.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.co.za.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.coop.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.cz.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.de.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.edu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.eu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.fi.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.fj.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.fm.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.fr.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.afternic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.alldomains.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.ascio.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.assorted.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.corporatedomains.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.directnic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.domaindiscover.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.domainpeople.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.dotster.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.dreamhost.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.enom.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.fabulous.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.fastdomain.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.gandi.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.genericb.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.godaddy.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.iana.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.interdomain.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.itsyourdomain.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.joker.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.markmonitor.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.melbourneit.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.moniker.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.namejuice.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.nameking.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.names4ever.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.namevault.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.networksolutions.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.nicco.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.nicline.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.onlinenic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.opensrs.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.ovh.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.psiusa.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.publicdomainregistry.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.register.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.rrpproxy.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.schlund.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.srsplus.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.tmagnic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.tvcorp.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.gtld.wildwestdomains.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.hu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.icon.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.idna.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ie.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.in.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.info.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.int.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.afrinic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.apnic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.arin.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.krnic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.lacnic.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.lib.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ip.ripe.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ir.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.is.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.it.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.jp.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.lt.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.lu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ly.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.main.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.me.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.mobi.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.museum.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.mx.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.name.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.nl.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.nu.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.nz.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.org.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.org.za.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.parser.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.pl.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.pro.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.pt.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ro.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ru.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.rwhois.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.sc.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.se.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.servers.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.si.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.su.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.tel.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.travel.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.uk.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.us.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.utils.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ve.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.ws.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/lib/whois/whois.zanet.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/license.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/logs/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/logs/wp-security-log-cron-job.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/logs/wp-security-log.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/other-includes/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/other-includes/wp-security-visitor-lockout-page.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/readme.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/wp-security-core.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/all-in-one-wp-security-and-firewall/wp-security.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/_syntaxhighlighter-template.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-da_DK.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-da_DK.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-it_IT.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-it_IT.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-ja.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-ja.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-tr_TR.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-tr_TR.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-uk.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-uk.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-zh_CN.mo" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/localization/syntaxhighlighter-zh_CN.po" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/readme.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/screenshot-1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/screenshot-2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/LGPLv3.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/clipboard.swf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushAS3.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushBash.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushCSharp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushColdFusion.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushCpp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushCss.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushDelphi.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushDiff.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushErlang.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushGroovy.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushJScript.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushJava.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushJavaFX.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushPerl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushPhp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushPlain.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushPowerShell.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushPython.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushRuby.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushScala.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushSql.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushVb.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shBrushXml.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shCore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/shLegacy.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/help.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/magnifier.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/page_white_code.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/page_white_copy.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/printer.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shCore.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeDefault.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeDjango.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeEclipse.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeEmacs.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeFadeToGrey.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeMidnight.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeRDark.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/LGPL-LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/MIT-LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shAutoloader.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAS3.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushAppleScript.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushBash.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCSharp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushColdFusion.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCpp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushCss.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDelphi.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushDiff.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushErlang.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushGroovy.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJScript.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJava.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushJavaFX.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPerl.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPhp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPowerShell.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPython.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushRuby.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSass.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushScala.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushSql.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushVb.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushXml.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shLegacy.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreDefault.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreDjango.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreEclipse.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreEmacs.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreFadeToGrey.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreMDUltra.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreMidnight.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCoreRDark.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDjango.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeEclipse.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeEmacs.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeFadeToGrey.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeMDUltra.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeMidnight.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeRDark.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/syntaxhighlighter_mce.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/_readme.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushClojure.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushFSharp.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushLatex.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushMatlabKey.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushObjC.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/plugins/syntaxhighlighter/third-party-brushes/shBrushR.js" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/Less/README.md" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/Less/dev/reset.less" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/Less/dev/style.less" afterPath="" />
@@ -431,7 +15,6 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/Less/lang/theme.po" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/Less/screenshot.png" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/Less/style.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/config.rb" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/demo.css" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/data/post_1.json" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/data/post_2.json" afterPath="" />
@@ -452,16 +35,17 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/scss/_mixins.scss" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/scss/_variables.scss" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/scss/styles.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/images/wpmini-blue-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/images/wpmini-blue.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/js/thickbox/tb-close-2x.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/js/thickbox/tb-close.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/js/tinymce/plugins/wpeditimage/js/editimage.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/js/tinymce/themes/advanced/skins/wp_theme/img/more_bug.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-includes/js/tinymce/themes/advanced/skins/wp_theme/img/page_bug.gif" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/archive.php" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/archive.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/blog.css" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/blog.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content.php" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/js/core.js" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/js/core.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/index.php" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/search.php" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/search.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/single.php" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/single.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Bayes-Shelton.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -484,10 +68,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="page.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php">
+      <file leaf-file-name="footer.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/footer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="149" column="9" selection-start="5177" selection-end="5177" vertical-scroll-proportion="0.8306189" vertical-offset="1485" max-vertical-offset="2655">
+            <state line="24" column="62" selection-start="980" selection-end="980" vertical-scroll-proportion="0.17628205" vertical-offset="0" max-vertical-offset="936">
               <folding />
             </state>
           </provider>
@@ -511,30 +95,31 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/github/mycurl.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/index-foo.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/list.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/demo.css" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content_home.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/search.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/single.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/style.css" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/blog.css" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/style.css" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content_all.php" />
         <option value="$USER_HOME$/Downloads/OB/blog.html" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/404.php" />
+        <option value="$USER_HOME$/Downloads/OB/index.html" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/demo.css" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/style.css" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/js/core.js" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/single.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/archive.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/index.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/search.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/tag.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/category.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/content_list.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/bayes-shelton/footer.php" />
       </list>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="y" value="22" />
-    <option name="width" value="1280" />
-    <option name="height" value="774" />
+    <option name="x" value="1280" />
+    <option name="y" value="-119" />
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -641,7 +226,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/OB/blog_page.html" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/OB" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -709,7 +294,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1280" height="774" extended-state="6" />
+    <frame x="1280" y="-119" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -717,7 +302,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2515625" sideWeight="0.67157584" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14635417" sideWeight="0.67157584" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -748,9 +333,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -765,98 +350,102 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/js/core.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="53" selection-start="729" selection-end="729" vertical-scroll-proportion="0.2130621" vertical-offset="236" max-vertical-offset="1500" />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="0" selection-start="2960" selection-end="2960" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2685">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="21" selection-start="3007" selection-end="3007" vertical-scroll-proportion="0.0" vertical-offset="1065" max-vertical-offset="1965">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/OB/blog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1964" selection-end="2150" vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="2820" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/twentytwelve/inc/custom-header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2460" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/twentytwelve/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="5.6666665" vertical-offset="136" max-vertical-offset="750" />
+        <state line="65" column="23" selection-start="3046" selection-end="3046" vertical-scroll-proportion="0.26755852" vertical-offset="525" max-vertical-offset="2505" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/content.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="63" selection-start="408" selection-end="408" vertical-scroll-proportion="0.0964467" vertical-offset="198" max-vertical-offset="825" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/blog.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="31" selection-start="1681" selection-end="1681" vertical-scroll-proportion="-3.9215686" vertical-offset="1600" max-vertical-offset="2940" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="97" column="32" selection-start="1365" selection-end="1365" vertical-scroll-proportion="0.108333334" vertical-offset="1390" max-vertical-offset="9345">
+        <state line="38" column="46" selection-start="1092" selection-end="1092" vertical-scroll-proportion="0.4945055" vertical-offset="0" max-vertical-offset="910">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="203" column="31" selection-start="2891" selection-end="2891" vertical-scroll-proportion="2.5422428" vertical-offset="1390" max-vertical-offset="9345">
+        <state line="203" column="18" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.0" vertical-offset="2141" max-vertical-offset="10950" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/twentyfourteen/category.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="12" selection-start="326" selection-end="356" vertical-scroll-proportion="0.26755852" vertical-offset="0" max-vertical-offset="960" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/twentyfourteen/content.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.054945055" vertical-offset="50" max-vertical-offset="960" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/twentyfourteen/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.016483517" vertical-offset="0" max-vertical-offset="910" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/twentyfourteen/image.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="0" selection-start="2622" selection-end="2656" vertical-scroll-proportion="0.85164833" vertical-offset="275" max-vertical-offset="1185" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/archive.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="0" selection-start="4670" selection-end="4689" vertical-scroll-proportion="0.88624054" vertical-offset="832" max-vertical-offset="1755">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="158" column="13" selection-start="6230" selection-end="6230" vertical-scroll-proportion="0.0" vertical-offset="1578" max-vertical-offset="2475">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="13" selection-start="2224" selection-end="2224" vertical-scroll-proportion="0.72115386" vertical-offset="0" max-vertical-offset="936">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/single.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="4" selection-start="2213" selection-end="2213" vertical-scroll-proportion="-0.06109325" vertical-offset="477" max-vertical-offset="1410" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/content_all.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="37" selection-start="430" selection-end="430" vertical-scroll-proportion="-5.625" vertical-offset="0" max-vertical-offset="300" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="87" selection-start="1440" selection-end="1440" vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="555" />
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/OB/blog.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1964" selection-end="2150" vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="2820" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/archive.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="7" selection-start="5823" selection-end="5823" vertical-scroll-proportion="-24.333334" vertical-offset="1501" max-vertical-offset="2175">
-          <folding>
-            <element signature="e#6#493#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="34" selection-start="2279" selection-end="2279" vertical-scroll-proportion="38.166668" vertical-offset="1351" max-vertical-offset="1965">
+        <state line="64" column="0" selection-start="2781" selection-end="4767" vertical-scroll-proportion="0.0" vertical-offset="806" max-vertical-offset="1740">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/page.php">
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/tag.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="149" column="9" selection-start="5177" selection-end="5177" vertical-scroll-proportion="0.8306189" vertical-offset="1485" max-vertical-offset="2655">
+        <state line="81" column="55" selection-start="3562" selection-end="3574" vertical-scroll-proportion="-19.375" vertical-offset="750" max-vertical-offset="2145">
+          <folding>
+            <element signature="e#6#469#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/content_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="5" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0625" vertical-offset="0" max-vertical-offset="960">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/category.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="55" selection-start="3574" selection-end="3574" vertical-scroll-proportion="-18.375" vertical-offset="579" max-vertical-offset="2040">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/bayes-shelton/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="62" selection-start="980" selection-end="980" vertical-scroll-proportion="0.17628205" vertical-offset="0" max-vertical-offset="936">
           <folding />
         </state>
       </provider>

@@ -35,14 +35,13 @@
     <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/waypoints-sticky.min.js"></script>
     <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/core.js"></script>
     <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/js/jquery.stellar.min.js"></script>
-    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?autoload=true&amp;skin=sunburst&amp;lang=css" defer="defer"></script>
 </head>
 <body>
 
     <div id="search-box">
         <div id="search-area">
             <input clsss="big-search" />
-            <h3 class="helper-search">Type to begin search</h3>
+            <h3 class="helper-search">Type to begin search</h3><h3 class="helper-search">Press enter when you are done!</h3>
             <div class="close-area">
                 <span class="close-me"><i class="fa fa-times"></i> exit search</span>
             </div>
@@ -65,11 +64,20 @@
     </div>
     <div class="footer">
         <div class="inner">
-            <h1>Phalcon PHP: Theres more to come – #2</h1>
-            <span class="posted">posted on 23th Nov 2013</span>
 
-            <hr>
-            <span class="read-more"><a href="#">read the next article<i class="fa fa-long-arrow-right"></i></a></span>
+            <?php
+            $next_post = get_next_post();
+            if (!empty( $next_post )) { ?>
+                <h1><?php echo $next_post->post_title; ?></h1>
+                <span class="posted">posted on 23th Nov 2013</span>
+                <hr>
+                <span class="read-more"><a href="<?php echo get_permalink( $next_post->ID ); ?>" title="<?php echo $next_post->post_title; ?>">read the next article<i class="fa fa-long-arrow-right"></i></a></span>
+            <?php } else { ?>
+                <h1>Latest Post</h1>
+                <hr>
+                <span class="read-more"><a href="/blog/">Home<i class="fa fa-long-arrow-right"></i></a></span>
+            <?php } ?>
+
             <br>
             <br>
             <div class="anims"></div>

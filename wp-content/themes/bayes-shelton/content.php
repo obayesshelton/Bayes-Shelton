@@ -37,8 +37,17 @@
 
             <ul class="tags">
             <li><i class="fa fa-tag"></i></li>
-            <li>phalcon</li>,
-            <li>code</li>
+                <?php
+
+                global $post;
+                $tags = wp_get_post_tags($post->ID);
+                foreach ($tags as $tag) {
+                    $html = '<li><a href="/tag/' . $tag->slug . '">';
+                    $html .= $tag->name;
+                    $html .= '</a></li>';
+                    echo $html;
+                }
+                ?>
             </ul>
 
             <ul class="author">
