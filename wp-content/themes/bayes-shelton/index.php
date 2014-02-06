@@ -116,10 +116,9 @@ get_header(); ?>
         </div>
 
 
-
-
-
-
+        <div class="social-sign-up">
+            <?php do_action( 'wordpress_social_login' ); ?>
+        </div>
 
     </section>
 
