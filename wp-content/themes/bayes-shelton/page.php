@@ -46,7 +46,7 @@ get_header(); ?>
 <section id="content-section">
 	<div class="inner">
 <div id="github" class="some-area gh" >
-<h1><i class="fa fa-github"></i></h1>
+<h1>Work</h1>
 <hr>
 <ul>
     <?php
@@ -95,7 +95,7 @@ get_header(); ?>
 </div>
 
 <div class="some-area">
-<a hrf="/blog/"><h1><i class="fa fa-bullhorn"></i></h1></a>
+<a hrf="/blog/"><h1>Articles</h1></a>
 <hr>
 
     <?php

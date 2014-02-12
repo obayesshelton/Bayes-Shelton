@@ -93,7 +93,7 @@ get_header(); ?>
 
             <div class="right-column">
 
-                <h1><i class="fa fa-archive"></i>Catagories</h1>
+                <h1><i class="fa fa-archive"></i>Categories</h1>
                 <hr>
                 <ul class="tags">
                     <li></li>
