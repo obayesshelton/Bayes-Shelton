@@ -100,7 +100,7 @@ get_header(); ?>
 
     <?php
 
-        $args = array( 'posts_per_page' => 5, 'offset'=> 1, 'category' => 1 );
+        $args = array( 'posts_per_page' => 5);
 
         $myposts = get_posts( $args );
         foreach ($myposts as $post) : setup_postdata($post); ?>
