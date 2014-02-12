@@ -46,7 +46,7 @@ get_header(); ?>
 <section id="content-section">
 	<div class="inner">
 <div id="github" class="some-area gh" >
-<h1>Work</h1>
+<h1>Projects</h1>
 <hr>
 <ul>
     <?php
