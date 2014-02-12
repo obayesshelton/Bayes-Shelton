@@ -55,7 +55,7 @@ get_header(); ?>
  * How to use: simply uncomment and comment out the unnecessary command to test
  */
 
-    /*include_once "github/githubapi.php";
+    include_once "github/githubapi.php";
     include_once "github/config.php";
 
     $api = new githubApi($config);
@@ -85,7 +85,7 @@ get_header(); ?>
 
         }
 
-    }*/
+    }
 
     ?>
 </ul>
@@ -119,8 +119,8 @@ get_header(); ?>
             </div>
         <?php endforeach;
         wp_reset_postdata();?>
-
 </div>
+<a href="/blog" class="blog btn">Visit the blog</a>
 
 			</section>
 <?php

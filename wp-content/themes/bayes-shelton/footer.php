@@ -17,11 +17,11 @@
 ?>
 <div class="footer">
     <div class="inner">
-        <h3> am i doing something you like? <span><a class="contact-btn">contact me</a></h3>
+        <!--<h3> am i doing something you like? <span><a class="contact-btn">contact me</a></h3>-->
         <a href="https://twitter.com/BayesShelton" target="_blank"><i class="fa fa-twitter fa-fw"></i></a>
 
         <a href="https://github.com/obayesshelton" target="_blank"><i class="fa fa-github fa-fw"></i></a>
-        <a href="mailto:hello@bayes-shelton.co.uk"><i class="fa fa-envelope fa-fw"></i></a>
+        <a href="mailto:me@bayes-shelton.co.uk"><i class="fa fa-envelope fa-fw"></i></a>
         <a href="http://www.linkedin.com/in/oliverbayesshelton" target="_blank"><i class="fa fa-linkedin fa-fw"></i></a>
 
         <hr/>

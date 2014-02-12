@@ -50,7 +50,7 @@ function WidthChange(mq) {
   				horizontalOffset: 0,
   				verticalOffset: 310
 });
-		$('#header').outerHeight($(window).outerHeight())
+		// $('#header').outerHeight($(window).outerHeight())
 	}
 		$('.some-area').waypoint(function(direction) {
 			

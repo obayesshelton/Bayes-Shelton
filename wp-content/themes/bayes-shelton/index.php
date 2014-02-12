@@ -34,7 +34,7 @@ get_header(); ?>
 </div>
 <div class="container">
     <section id="heading" >
-        <span class="anims"></span>
+        <a href="/"><span class="anims"></span></a>
         <section id="#header_nav" class="header" >
             <span class="take-me-uptop" onclick="toTop()"><i class="fa fa-long-arrow-up"></i>top</span>
             <span class="search-btn" ><i class="fa fa-search"></i></span>

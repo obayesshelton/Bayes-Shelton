@@ -31,7 +31,6 @@
 
             <p><?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentytwelve' ) ); ?></p>
             <p><?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?></p>
-            <p>Hope you enjoyed this and learned something new!</p>
 
         <div class="more_info">
 
