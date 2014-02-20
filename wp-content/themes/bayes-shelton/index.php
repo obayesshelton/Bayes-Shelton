@@ -21,7 +21,7 @@ get_header(); ?>
     <div id="header">
     <section id="heading" >
         <section id="#header_nav" class="header" >
-            <span class="anim"></span>
+            <a href="/"><span class="anim"></span></a>
             <span class="take-me-uptop" onclick="toTop()"><i class="fa fa-long-arrow-up"></i>top</span>
         </section>
     </section>
