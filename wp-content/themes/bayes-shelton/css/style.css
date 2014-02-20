@@ -93,7 +93,6 @@ padding: 10px 0px;
   text-align: center;
 
 font-family: 'Ubuntu', sans-serif;
-	overflow: hidden;
     background-size: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -123,12 +122,12 @@ font-family: 'Ubuntu', sans-serif;
 
 .take-me-uptop {
 	position: absolute;
-	right: -100px;
 	background: rgba(0,0,0,0.1);
 	color: rgba(255,255,255,0.5);
 	font-weight: 200;
 	padding: 5px 10px;
 top: 8px;
+right: 8px;
 	border-radius: 3px;
 	opacity: 0;
 	transition: all 0.4s ease;
@@ -144,13 +143,13 @@ font-size: 0.8em;
         color: rgba(255,255,255,0.5);
         font-weight: 200;
         padding: 5px 10px;
-top: 8px;
+left: 8px;
+top: -10px;
         border-radius: 3px;
-        opacity: 0;
-        transition: all 0.4s ease;
+        opacity: 1;
         cursor: pointer;
         text-transform: uppercase;
-font-size: 0.8em;
+font-size: 0.7em;
 }
 
 .take-me-uptop:hover, .take-me-back:hover {
@@ -168,14 +167,14 @@ font-size: 0.8em;
 	right: 8px;
 }
 
-.take-me-back {
-left: -100px;
-}
 
 .stuck .take-me-back {
 left: 8px;
 opacity: 1;
+font-size: 0.8em;
+top: 8px;
 }
+
 
 
 
