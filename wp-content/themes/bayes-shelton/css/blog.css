@@ -190,4 +190,11 @@ h3 {
 
 .blog-post .blog-right h3 {
 text-align: LEFT;
+
+
+}
+
+img {
+margin: 0 auto;
+display: block;
 }

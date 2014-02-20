@@ -137,19 +137,44 @@ top: 8px;
 font-size: 0.8em;
 }
 
-.take-me-uptop:hover {
+
+.take-me-back {
+        position: absolute;
+        background: rgba(0,0,0,0.1);
+        color: rgba(255,255,255,0.5);
+        font-weight: 200;
+        padding: 5px 10px;
+top: 8px;
+        border-radius: 3px;
+        opacity: 0;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        text-transform: uppercase;
+font-size: 0.8em;
+}
+
+.take-me-uptop:hover, .take-me-back:hover {
 	color: rgba(255,255,255,1);
 	background: rgba(0,0,0,0.3);
 
 }
 
-.take-me-uptop i {
+.take-me-uptop i, .take-me-back i {
 	margin-right: 10px;
 }
 
 .stuck .take-me-uptop {
 	opacity: 1;
 	right: 8px;
+}
+
+.take-me-back {
+left: -100px;
+}
+
+.stuck .take-me-back {
+left: 8px;
+opacity: 1;
 }
 
 
