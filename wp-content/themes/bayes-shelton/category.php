@@ -16,31 +16,14 @@
 
 get_header(); ?>
 
-
-    <div id="search-box">
-        <div id="search-area">
-            <form role="search" method="get" class="search-form" action="http://local.bayes-shelton.com/">
-                <label>
-                    <input type="search" clsss="big-search" value="...." name="s"/>
-                </label>
-                <input type="submit" class="search-submit" value="Search">
-            </form>
-            <h3 class="helper-search">Type to begin search</h3><h3 class="helper-search">Press enter when you are done!</h3>
-            <div class="close-area">
-                <span class="close-me"><i class="fa fa-times"></i> exit search</span>
-            </div>
-        </div>
-    </div>
 <div class="container">
+    <div id="header">
     <section id="heading" >
-        <span class="anims"></span>
         <section id="#header_nav" class="header" >
+            <a href="/"><span class="anim"></span></a>
             <span class="take-me-uptop" onclick="toTop()"><i class="fa fa-long-arrow-up"></i>top</span>
-            <span class="search-btn" ><i class="fa fa-search"></i></span>
         </section>
-
     </section>
-
 
     <div class="inner">
 
