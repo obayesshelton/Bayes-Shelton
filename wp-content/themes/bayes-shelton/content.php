@@ -17,8 +17,8 @@
             <h1><?php the_title(); ?></h1>
             <span class="posted">posted on <?php the_date(); ?></span>
 
-            <span class="take-me-uptop" onclick="toTop()"><i class="fa fa-long-arrow-up"></i>top</span>		
-<span class="take-me-back"><a href="/blog"><i class="fa fa-long-arrow-left"></i>back</a></span> 
+            <span class="take-me-uptop" onclick="toTop()"><i class="fa fa-long-arrow-up"></i>top</span>
+<span class="take-me-back"><a href="/blog"><i class="fa fa-long-arrow-left"></i>back</a></span>
        </section>
     </section>
 
@@ -34,21 +34,6 @@
             <p><?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?></p>
 
         <div class="more_info">
-
-            <ul class="tags">
-            <li><i class="fa fa-tag"></i></li>
-                <?php
-
-                global $post;
-                $tags = wp_get_post_tags($post->ID);
-                foreach ($tags as $tag) {
-                    $html = '<li>' . $tag->slug;
-                    $html .= $tag->name;
-                    $html .= '</li>';
-                    echo $html;
-                }
-                ?>
-            </ul>
 
             <ul class="author">
                 <li><i class="fa fa-pencil"></i>oliver_admin</li>
