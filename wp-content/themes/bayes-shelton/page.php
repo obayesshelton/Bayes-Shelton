@@ -36,7 +36,9 @@ get_header(); ?>
 			<h1 class="uppercase">Oliver Bayes-Shelton...</h1>
 			<hr>
 				<p>
-                    I'm a dedicated self learner that has a passion for technology. I have been lucky enough to work with some amazing teams which have developed innovative, engaging and life changing software. I have been responsible for software development, planning and management of projects as well as the planning and implementation of the infrastructure. I have an interest in web and non-web systems, open source projects and the technology community in general.
+                    A software engineer with extensive development experience and a problem solver with a can do attitude. Always looking for the optimum solution whilst enjoying the challenge of satisfying the needs of the user, the business and the development teams. Experience with Data Analysis, Database Design, Application Design and Object Oriented Programming.
+		    <br/>
+		    With a previous track record of successfully working with various different software development methodologies such as SCRUM to build strong relationships with all stakeholders and to turn concepts into reality on-time. 
                 </p>
 
         </div>
