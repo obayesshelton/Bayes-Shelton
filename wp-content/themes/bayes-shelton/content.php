@@ -35,7 +35,7 @@
         <div class="more_info">
 
             <ul class="author">
-                <li><i class="fa fa-pencil"></i>oliver_admin</li>
+                <li><i class="fa fa-pencil"></i>Oliver</li>
             </ul>
 
         </div>
