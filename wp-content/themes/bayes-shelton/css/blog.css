@@ -199,3 +199,14 @@ margin: 0 auto;
 display: block;
 }
 
+.nav {
+	list-style: none;
+	margin: 0 auto;
+	clear: both;
+	width: 480px;
+}
+
+.nav li {
+	display: inline;
+	float: left;
+}

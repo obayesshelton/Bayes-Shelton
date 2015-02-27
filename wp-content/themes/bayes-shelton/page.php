@@ -26,24 +26,31 @@ get_header(); ?>
 				    </section>
 			</section>
 
-
 				<div class="inner">
 				<div id="about-section">
-					<div class="avatar">
+					<!--<div class="avatar">
 						<img src="<?php echo get_template_directory_uri(); ?>/images/me.jpg" data-stellar-ratio="1.2" />
-					</div>
-				
-			<h1 class="uppercase">Oliver Bayes-Shelton...</h1>
-			<hr>
-			<p>
-                    	Besides being a software engineer with extensive development experience, I am a skilled problem solver with a positive attitude. I continuously look for optimum solutions — all the while enjoying the challenge of satisfying the needs of the business, the development teams and, most importantly, the user.
-			<br/>
-			<br/>
-			My past experience spans several software development methodologies (such as SCRUM), all of which I have successfully worked within, building strong relationships with each stakeholder while never losing sight of the goal: to turn concepts into reality. And to do so on time.
-			<br/>
-			<br/>
-			Extensive experience with Data Analysis, Database Design, Application Design and Object Oriented Programming.
-                	</p>
+					</div>-->
+
+					<ul class="nav">
+						<li><a href="https://www.bayes-shelton.co.uk/wp-content/themes/bayes-shelton/OliverBayes-Shelton-CV.pdf" target="_blank" class="blog btn">CV</a></li>
+						<li><a href="/blog" class="blog btn">Blog</a></li>
+						<li><a href="mailto:hello@bayes-shelton.co.uk" class="blog btn">Contact Me</a></li>
+					</ul>
+
+					<br clear="both"/>
+
+					<!--<h1 class="uppercase">Oliver Bayes-Shelton...</h1>-->
+					<hr>
+					<p>
+						Besides being a software engineer with extensive development experience, I am a skilled problem solver with a positive attitude. I continuously look for optimum solutions — all the while enjoying the challenge of satisfying the needs of the business, the development teams and, most importantly, the user.
+						<br/>
+						<br/>
+						My past experience spans several software development methodologies (such as SCRUM), all of which I have successfully worked within, building strong relationships with each stakeholder while never losing sight of the goal: to turn concepts into reality. And to do so on time.
+						<br/>
+						<br/>
+						Extensive experience with Data Analysis, Database Design, Application Design and Object Oriented Programming.
+					</p>
 
         </div>
     </div>
