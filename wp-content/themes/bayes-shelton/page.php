@@ -43,14 +43,10 @@ get_header(); ?>
 					<!--<h1 class="uppercase">Oliver Bayes-Shelton...</h1>-->
 					<hr>
 					<p>
-						Besides being a software engineer with extensive development experience, I am a skilled problem solver with a positive attitude. I continuously look for optimum solutions — all the while enjoying the challenge of satisfying the needs of the business, the development teams and, most importantly, the user.
-						<br/>
-						<br/>
-						My past experience spans several software development methodologies (such as SCRUM), all of which I have successfully worked within, building strong relationships with each stakeholder while never losing sight of the goal: to turn concepts into reality. And to do so on time.
-						<br/>
-						<br/>
-						Extensive experience with Data Analysis, Database Design, Application Design and Object Oriented Programming.
-					</p>
+                        A highly-motivated and driven software engineer with over seven years experience specialising in agile software development process, test driven development and application development for both web, mobile and wearable applications. With previous experience ranging from application developer, software engineer and cloud architect, I possess an adaptable skills-set which ensures I constantly meet critical deadlines in the demands of a fast paced environment.
+                        <br/><br/>
+                        Seeking an opportunity as a Software Developer or Technical Architect be it project based, freelance or contract where I can deliver immediate value and continue to build innovative software.
+                    </p>
 
         </div>
     </div>
