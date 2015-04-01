@@ -45,7 +45,7 @@ get_header(); ?>
 					<p>
                         A highly-motivated and driven software engineer with over seven years experience specialising in agile software development process, test driven development and application development for both web, mobile and wearable applications. With previous experience ranging from application developer, software engineer and cloud architect, I possess an adaptable skills-set which ensures I constantly meet critical deadlines in the demands of a fast paced environment.
                         <br/><br/>
-                        Seeking an opportunity as a Software Developer or Technical Architect be it project based, freelance or contract where I can deliver immediate value and continue to build innovative software.
+                        Seeking an opportunity as a CTO, Co-Founder or Technical Architect be it advisory, project based, freelance or contract where I can deliver immediate value and continue to build innovative software.
                     </p>
 
         </div>
