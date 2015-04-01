@@ -3,11 +3,12 @@ class AIOWPSecurity_Backup
 {
     var $last_backup_file_name;//Stores the name of the last backup file when execute_backup function is called
     var $last_backup_file_path;
-    var $last_backup_file_url_multisite;
+    var $last_backup_file_dir_multisite;
     
     function __construct() 
     {
         add_action('aiowps_perform_scheduled_backup_tasks', array(&$this, 'aiowps_scheduled_backup_handler'));
+        add_action('aiowps_perform_db_cleanup_tasks', array(&$this, 'aiowps_scheduled_db_cleanup_handler'));
     }
     
     /**
@@ -31,6 +32,10 @@ class AIOWPSecurity_Backup
         {
             //get all of the tables
             $tables = $wpdb->get_results( 'SHOW TABLES', ARRAY_N );
+            if(empty($tables)){
+                $aio_wp_security->debug_logger->log_debug("execute_backup() - no tables found!",4);
+                return FALSE;
+            }
         }
 
         $return = '';
@@ -43,6 +48,9 @@ class AIOWPSecurity_Backup
 
             $return.= 'DROP TABLE IF EXISTS `' . $table[0] . '`;';
             $row2 = $wpdb->get_row( 'SHOW CREATE TABLE `' . $table[0] . '`;', ARRAY_N );
+            if(empty($row2)){
+                $aio_wp_security->debug_logger->log_debug("execute_backup() - get_row returned NULL for table: ".$table[0],4);
+            }
             $return.= PHP_EOL . PHP_EOL . $row2[1] . ";" . PHP_EOL . PHP_EOL;
 
             foreach( $result as $row ) 
@@ -73,14 +81,17 @@ class AIOWPSecurity_Backup
         $return .= PHP_EOL . PHP_EOL;
 
         //Check to see if the main "backups" directory exists - create it otherwise
-        if (!AIOWPSecurity_Utility_File::create_dir(AIO_WP_SECURITY_BACKUPS_PATH))
+        
+        $aiowps_backup_dir = WP_CONTENT_DIR.'/'.AIO_WP_SECURITY_BACKUPS_DIR_NAME;
+        $aiowps_backup_url = content_url().'/'.AIO_WP_SECURITY_BACKUPS_DIR_NAME;
+        if (!AIOWPSecurity_Utility_File::create_dir($aiowps_backup_dir))
         {
             $aio_wp_security->debug_logger->log_debug("Creation of DB backup directory failed!",4);
             return false;
         }
 
         //Generate a random prefix for more secure filenames
-        $random_prefix = $random_prefix = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(10);
+        $random_prefix = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(10);
 
         if ($is_multi_site)
         {
@@ -103,12 +114,12 @@ class AIOWPSecurity_Backup
             $file = $random_prefix.'-database-backup-site-name-' . $site_name . '-' . current_time( 'timestamp' );
             
             //We will create a sub dir for the blog using its blog id
-            $dirpath = AIO_WP_SECURITY_BACKUPS_PATH . '/blogid_' . $blog_id . '/';
+            $dirpath = $aiowps_backup_dir . '/blogid_' . $blog_id . '/';
             
             //Create a subdirectory for this blog_id
             if (!AIOWPSecurity_Utility_File::create_dir($dirpath))
             {
-                $aio_wp_security->debug_logger->log_debug("Creation of DB backup directory for the following multisite blog ID: ".$blog_details->blog_id,4);
+                $aio_wp_security->debug_logger->log_debug("Creation failed of DB backup directory for the following multisite blog ID: ".$blog_details->blog_id,4);
                 return false;
             }
             
@@ -116,7 +127,7 @@ class AIOWPSecurity_Backup
         }
         else
         {
-            $dirpath = AIO_WP_SECURITY_BACKUPS_PATH;
+            $dirpath = $aiowps_backup_dir;
             $file = $random_prefix.'-database-backup-' . current_time( 'timestamp' );
             $handle = @fopen( $dirpath . '/' . $file . '.sql', 'w+' );
         }
@@ -124,6 +135,7 @@ class AIOWPSecurity_Backup
         $fw_res = @fwrite( $handle, $return );
         if (!$fw_res)
         {
+            $aio_wp_security->debug_logger->log_debug("execute_backup() - Write to DB backup file failed",4); 
             return false;
         }
         @fclose( $handle );
@@ -147,7 +159,7 @@ class AIOWPSecurity_Backup
         $this->last_backup_file_path = $dirpath . '/' . $file . $fileext;
         if ($is_multi_site)
         {
-            $this->last_backup_file_url_multisite = AIO_WP_SECURITY_URL . '/backups/blogid_' . $blog_id; 
+            $this->last_backup_file_dir_multisite = $aiowps_backup_dir . '/blogid_' . $blog_id; 
         }
         
         $this->aiowps_send_backup_email(); //Send backup file via email if applicable
@@ -161,7 +173,7 @@ class AIOWPSecurity_Backup
         if ( $aio_wp_security->configs->get_value('aiowps_send_backup_email_address') == '1' ) 
         {
             //Get the right email address.
-            if ( is_email( $aio_wp_security->configs->get_value('aiowps_send_backup_email_address') ) ) 
+            if ( is_email( $aio_wp_security->configs->get_value('aiowps_backup_email_address') ) ) 
             {
                     $toaddress = $aio_wp_security->configs->get_value('aiowps_backup_email_address');
             } else 
@@ -170,7 +182,10 @@ class AIOWPSecurity_Backup
             }
 
             $to = $toaddress;
-            $headers = 'From: ' . get_option( 'blogname' ) . ' <' . $to . '>' . PHP_EOL;
+            $site_title = get_bloginfo( 'name' );
+            $from_name = empty($site_title)?'WordPress':$site_title;
+            
+            $headers = 'From: ' . $from_name . ' <' . get_option('admin_email') . '>' . PHP_EOL;
             $subject = __( 'All In One WP Security - Site Database Backup', 'aiowpsecurity' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
             $attachment = array( $this->last_backup_file_path );
             $message = __( 'Attached is your latest DB backup file for site URL', 'aiowpsecurity' ) . ' ' . get_option( 'siteurl' ) . __( ' generated on', 'aiowpsecurity' ) . ' ' . date( 'l, F jS, Y \a\\t g:i a', current_time( 'timestamp' ) );
@@ -254,5 +269,20 @@ class AIOWPSecurity_Backup
                 $aio_wp_security->configs->save_config();
             }
         }
+    }
+    
+
+    function aiowps_scheduled_db_cleanup_handler()
+    {
+        global $aio_wp_security;
+
+        $aio_wp_security->debug_logger->log_debug_cron("DB Cleanup - checking if a cleanup needs to be done now...");
+        //Check the events table because this can grow quite large especially when 404 events are being logged
+        $events_table_name = AIOWPSEC_TBL_EVENTS;
+        $max_rows_event_table = '5000'; //Keep a max of 5000 rows in the events table
+        $max_rows_event_table = apply_filters( 'aiowps_max_rows_event_table', $max_rows_event_table );
+        AIOWPSecurity_Utility::cleanup_table($events_table_name, $max_rows_event_table);
+        
+        //Keep adding other DB cleanup tasks as they arise...
     }
 }

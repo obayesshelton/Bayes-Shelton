@@ -5,9 +5,7 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu
     var $menu_page_slug = AIOWPSEC_BLACKLIST_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'Ban Users',
-        );
+    var $menu_tabs;
 
     var $menu_tabs_handler = array(
         'tab1' => 'render_tab1',
@@ -16,6 +14,13 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu
     function __construct() 
     {
         $this->render_menu_page();
+    }
+    
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+        'tab1' => __('Ban Users', 'aiowpsecurity'),
+        );
     }
     
     function get_current_tab() 
@@ -46,6 +51,7 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -84,7 +90,7 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu
                 {
                     $ip_addresses = $_POST['aiowps_banned_ip_addresses'];
                     $ip_list_array = AIOWPSecurity_Utility_IP::create_ip_list_array_from_string_with_newline($ip_addresses);
-                    $payload = AIOWPSecurity_Utility_IP::validate_ip_list($ip_list_array);
+                    $payload = AIOWPSecurity_Utility_IP::validate_ip_list($ip_list_array, 'blacklist');
                     if($payload[0] == 1){
                         //success case
                         $result = 1;
@@ -108,6 +114,9 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu
                 if (!empty($_POST['aiowps_banned_user_agents']))
                 {
                     $result = $result * $this->validate_user_agent_list();
+                }else{
+                    //clear the user agent list
+                    $aio_wp_security->configs->set_value('aiowps_banned_user_agents','');
                 }
                 
                 if ($result == 1)
@@ -217,7 +226,7 @@ class AIOWPSecurity_Blacklist_Menu extends AIOWPSecurity_Admin_Menu
         {
             foreach ($submitted_agents as $agent)
             {
-                $text = quotemeta(sanitize_text_field($agent));
+                $text = sanitize_text_field($agent);
                 $agents[] = $text;
             }
         }

@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: All In One WP Security
-Version: v2.3
-Plugin URI: http://www.tipsandtricks-hq.com/
-Author: Tips and Tricks HQ, Peter, Ruhul Amin
+Version: v3.9.0
+Plugin URI: http://www.tipsandtricks-hq.com/wordpress-security-and-firewall-plugin
+Author: Tips and Tricks HQ, Peter, Ruhul, Ivy
 Author URI: http://www.tipsandtricks-hq.com/
 Description: All round best WordPress security plugin!
-License: GPL2
+License: GPL3
 */
 
 if(!defined('ABSPATH'))exit; //Exit if accessed directly

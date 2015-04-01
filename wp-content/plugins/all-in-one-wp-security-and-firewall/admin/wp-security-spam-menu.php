@@ -5,14 +5,12 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
     var $menu_page_slug = AIOWPSEC_SPAM_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'Comment SPAM',
-        'tab2' => 'Comment SPAM IP Monitoring', 
-        );
+    var $menu_tabs;
 
     var $menu_tabs_handler = array(
         'tab1' => 'render_tab1',
         'tab2' => 'render_tab2',
+        'tab3' => 'render_tab3',
         );
     
     function __construct() 
@@ -20,6 +18,15 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
         $this->render_menu_page();
     }
     
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+        'tab1' => __('Comment SPAM', 'aiowpsecurity'),
+        'tab2' => __('Comment SPAM IP Monitoring', 'aiowpsecurity'),
+        'tab3' => __('BuddyPress', 'aiowpsecurity'),
+        );
+    }
+
     function get_current_tab() 
     {
         $tab_keys = array_keys($this->menu_tabs);
@@ -48,6 +55,7 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -69,13 +77,17 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
         if(isset($_POST['aiowps_apply_comment_spam_prevention_settings']))//Do form submission tasks
         {
             $nonce=$_REQUEST['_wpnonce'];
-            if (!wp_verify_nonce($nonce, 'aiowpsec-block-spambots-nonce'))
+            if (!wp_verify_nonce($nonce, 'aiowpsec-comment-spam-settings-nonce'))
             {
-                $aio_wp_security->debug_logger->log_debug("Nonce check failed on enable basic firewall settings!",4);
-                die("Nonce check failed on enable basic firewall settings!");
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed on save comment spam settings!",4);
+                die("Nonce check failed on save comment spam settings!");
             }
 
             //Save settings
+            $random_20_digit_string = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(20); //Generate random 20 char string for use during captcha encode/decode
+            $aio_wp_security->configs->set_value('aiowps_captcha_secret_key', $random_20_digit_string);
+
+            $aio_wp_security->configs->set_value('aiowps_enable_comment_captcha',isset($_POST["aiowps_enable_comment_captcha"])?'1':'');
             $aio_wp_security->configs->set_value('aiowps_enable_spambot_blocking',isset($_POST["aiowps_enable_spambot_blocking"])?'1':'');
 
             //Commit the config settings
@@ -100,19 +112,42 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
         ?>
         <h2><?php _e('Comment SPAM Settings', 'aiowpsecurity')?></h2>
         <form action="" method="POST">
-        <?php wp_nonce_field('aiowpsec-block-spambots-nonce'); ?>            
+        <?php wp_nonce_field('aiowpsec-comment-spam-settings-nonce'); ?>            
 
+        <div class="postbox">
+        <h3><label for="title"><?php _e('Add Captcha To Comments Form', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
+        <div class="aio_blue_box">
+            <?php
+            echo '<p>'.__('This feature will add a simple math captcha field in the WordPress comments form.', 'aiowpsecurity').
+            '<br />'.__('Adding a captcha field in the comment form is a simple way of greatly reducing SPAM comments from bots without using .htaccess rules.', 'aiowpsecurity').'</p>';
+            ?>
+        </div>
+        <?php
+        //Display security info badge
+        $aiowps_feature_mgr->output_feature_details_badge("comment-form-captcha");
+        ?>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row"><?php _e('Enable Captcha On Comment Forms', 'aiowpsecurity')?>:</th>                
+                <td>
+                <input name="aiowps_enable_comment_captcha" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_enable_comment_captcha')=='1') echo ' checked="checked"'; ?> value="1"/>
+                <span class="description"><?php _e('Check this if you want to insert a captcha field on the comment forms', 'aiowpsecurity'); ?></span>
+                </td>
+            </tr>            
+        </table>
+        </div></div>
+            
+        <div class="postbox">
+        <h3><label for="title"><?php _e('Block Spambot Comments', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
         <div class="aio_blue_box">
             <?php
             echo '<p>'.__('A large portion of WordPress blog comment SPAM is mainly produced by automated bots and not necessarily by humans. ', 'aiowpsecurity').
             '<br />'.__('This feature will greatly minimize the useless and unecessary traffic and load on your server resulting from SPAM comments by blocking all comment requests which do not originate from your domain.', 'aiowpsecurity').
-            '<br />In other words, if the comment was not submitted by a human who physically submitted the comment on your site, the request will be blocked.</p>';
+            '<br />'.__('In other words, if the comment was not submitted by a human who physically submitted the comment on your site, the request will be blocked.', 'aiowpsecurity').'</p>';
             ?>
         </div>
-
-        <div class="postbox">
-        <h3><label for="title"><?php _e('Block Spambot Comments', 'aiowpsecurity'); ?></label></h3>
-        <div class="inside">
         <?php
         //Display security info badge
         $aiowps_feature_mgr->output_feature_details_badge("block-spambots");
@@ -213,7 +248,7 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
         <table class="form-table">
             <tr valign="top">
                 <th scope="row"><?php _e('Minimum number of SPAM comments per IP', 'aiowpsecurity')?>:</th>
-                <td><input size="5" name="aiowps_spam_ip_min_comments" value="<?php echo $aio_wp_security->configs->get_value('aiowps_spam_ip_min_comments'); ?>" />
+                <td><input type="text" size="5" name="aiowps_spam_ip_min_comments" value="<?php echo $aio_wp_security->configs->get_value('aiowps_spam_ip_min_comments'); ?>" />
                 <span class="description"><?php _e('This field allows you to list only those IP addresses which have been used to post X or more SPAM comments.', 'aiowpsecurity');?></span>
                 <span class="aiowps_more_info_anchor"><span class="aiowps_more_info_toggle_char">+</span><span class="aiowps_more_info_toggle_text"><?php _e('More Info', 'aiowpsecurity'); ?></span></span>
                 <div class="aiowps_more_info_body">
@@ -256,4 +291,67 @@ class AIOWPSecurity_Spam_Menu extends AIOWPSecurity_Admin_Menu
         <?php
     }
         
+    
+    function render_tab3()
+    {
+        global $aiowps_feature_mgr;
+        global $aio_wp_security;
+        if(isset($_POST['aiowps_save_bp_spam_settings']))//Do form submission tasks
+        {
+            $nonce=$_REQUEST['_wpnonce'];
+            if (!wp_verify_nonce($nonce, 'aiowpsec-bp-spam-settings-nonce'))
+            {
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed on save comment spam settings!",4);
+                die("Nonce check failed on save comment spam settings!");
+            }
+
+            //Save settings
+            $aio_wp_security->configs->set_value('aiowps_enable_bp_register_captcha',isset($_POST["aiowps_enable_bp_register_captcha"])?'1':'');
+
+            //Commit the config settings
+            $aio_wp_security->configs->save_config();
+            
+            //Recalculate points after the feature status/options have been altered
+            $aiowps_feature_mgr->check_feature_status_and_recalculate_points();
+
+            $this->show_msg_updated(__('Settings were successfully saved', 'aiowpsecurity'));
+        }
+
+        ?>
+        <h2><?php _e('BuddyPress SPAM Settings', 'aiowpsecurity')?></h2>
+        <form action="" method="POST">
+        <?php wp_nonce_field('aiowpsec-bp-spam-settings-nonce'); ?>            
+
+        <div class="postbox">
+        <h3><label for="title"><?php _e('Add Captcha To BuddyPress Registration Form', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
+        <div class="aio_blue_box">
+            <?php
+            echo '<p>'.__('This feature will add a simple math captcha field in the BuddyPress registration form.', 'aiowpsecurity').
+            '<br />'.__('Adding a captcha field in the registration form is a simple way of greatly reducing SPAM signups from bots without using .htaccess rules.', 'aiowpsecurity').'</p>';
+            ?>
+        </div>
+        <?php
+        if (defined('BP_VERSION')){
+            //Display security info badge
+            $aiowps_feature_mgr->output_feature_details_badge("bp-register-captcha");
+        ?>
+        <table class="form-table">
+            <tr valign="top">
+                <th scope="row"><?php _e('Enable Captcha On BuddyPress Registration Form', 'aiowpsecurity')?>:</th>                
+                <td>
+                <input name="aiowps_enable_bp_register_captcha" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_enable_bp_register_captcha')=='1') echo ' checked="checked"'; ?> value="1"/>
+                <span class="description"><?php _e('Check this if you want to insert a captcha field on the BuddyPress registration forms', 'aiowpsecurity'); ?></span>
+                </td>
+            </tr>            
+        </table>
+        </div></div>
+        <input type="submit" name="aiowps_save_bp_spam_settings" value="<?php _e('Save Settings', 'aiowpsecurity')?>" class="button-primary" />
+        </form>
+        <?php
+        }else{
+            $this->show_msg_error(__('BuddyPress is not active! In order to use this feature you will need to have BuddyPress installed and activated.', 'aiowpsecurity'));
+        }
+    }
+    
 } //end class

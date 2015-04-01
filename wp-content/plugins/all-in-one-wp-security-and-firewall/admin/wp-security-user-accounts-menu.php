@@ -5,11 +5,7 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
     var $menu_page_slug = AIOWPSEC_USER_ACCOUNTS_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'WP Username', 
-        'tab2' => 'Display Name',
-        'tab3' => 'Password'
-        );
+    var $menu_tabs;
     var $menu_tabs_handler = array(
         'tab1' => 'render_tab1', 
         'tab2' => 'render_tab2',
@@ -27,6 +23,15 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
         }
     }
     
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+        'tab1' => __('WP Username', 'aiowpsecurity'), 
+        'tab2' => __('Display Name', 'aiowpsecurity'),
+        'tab3' => __('Password', 'aiowpsecurity')
+        );
+    }
+
     function get_current_tab() 
     {
         $tab_keys = array_keys($this->menu_tabs);
@@ -55,6 +60,7 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_user_account_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -104,7 +110,7 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
         global $aiowps_feature_mgr;
         $aiowps_feature_mgr->output_feature_details_badge("user-accounts-change-admin-user");
         
-        if (AIOWPSecurity_Utility::check_user_exists('admin')) 
+        if (AIOWPSecurity_Utility::check_user_exists('admin') || AIOWPSecurity_Utility::check_user_exists('Admin')) 
         {
             echo '<div class="aio_red_box"><p>'.__('Your site currently has an account which uses the default "admin" username. 
                 It is highly recommended that you change this name to something else. 
@@ -115,7 +121,7 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row"><label for="NewUserName"> <?php _e('New Admin Username', 'aiowpsecurity')?>:</label></th>
-                    <td><input size="16" name="aiowps_new_user_name" />
+                    <td><input type="text" size="16" name="aiowps_new_user_name" />
                     <p class="description"><?php _e('Choose a new username for admin.', 'aiowpsecurity'); ?></p>
                     </td> 
                 </tr>
@@ -212,13 +218,13 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
                     <div class="description"><?php _e('Start typing a password.', 'aiowpsecurity'); ?></div>
                 </div>
             <div id="aiowps_pw_tool_main">
-                <div class="aiowps_password_crack_info_text">It would take a desktop PC approximately
-                <div id="aiowps_password_crack_time_calculation">1 sec</div> to crack your password!</div>
+                <div class="aiowps_password_crack_info_text"><?php _e('It would take a desktop PC approximately', 'aiowpsecurity'); ?>
+                <div id="aiowps_password_crack_time_calculation"><?php _e('1 sec', 'aiowpsecurity'); ?></div> <?php _e('to crack your password!', 'aiowpsecurity'); ?></div>
                 <!-- The rotating arrow -->
                 <div class="arrowCap"></div>
                 <div class="arrow"></div>
 
-                <p class="meterText">Password Strength</p>
+                <p class="meterText"><?php _e('Password Strength', 'aiowpsecurity'); ?></p>
             </div>
             </div>
             </div>   
@@ -275,10 +281,12 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
                         //Lets logout the user
                         $aio_wp_security->debug_logger->log_debug("Logging User Out with login ".$user_login. " because they changed their username.");
                         $after_logout_url = AIOWPSecurity_Utility::get_current_page_url();
-                        $after_logout_payload = 'redirect_to='.$after_logout_url.'&msg='.$aio_wp_security->user_login_obj->key_login_msg.'=admin_user_changed';//Place the handle for the login screen message in the URL
-                        $encrypted_payload = base64_encode($after_logout_payload);
+                        $after_logout_payload = array('redirect_to'=>$after_logout_url, 'msg'=>$aio_wp_security->user_login_obj->key_login_msg.'=admin_user_changed', );
+                        //Save some of the logout redirect data to a transient
+                        AIOWPSecurity_Utility::is_multisite_install() ? set_site_transient('aiowps_logout_payload', $after_logout_payload, 30 * 60) : set_transient('aiowps_logout_payload', $after_logout_payload, 30 * 60);
+                        
                         $logout_url = AIOWPSEC_WP_URL.'?aiowpsec_do_log_out=1';
-                        $logout_url = AIOWPSecurity_Utility::add_query_data_to_url($logout_url, 'al_additional_data', $encrypted_payload);
+                        $logout_url = AIOWPSecurity_Utility::add_query_data_to_url($logout_url, 'al_additional_data', '1');
                         AIOWPSecurity_Utility::redirect_to_url($logout_url);
                     }
                 }
@@ -318,7 +326,7 @@ class AIOWPSecurity_User_Accounts_Menu extends AIOWPSecurity_Admin_Menu
             $account_output .= '<tr><th>'.__('Account Login Name', 'aiowpsecurity').'</th></tr>';
             foreach ($admin_users as $entry) {
                 $account_output .= '<tr>';
-                if ($entry->user_login == 'admin') {
+                if (strtolower($entry->user_login) == 'admin') {
                     $account_output .= '<td style="color:red; font-weight: bold;">'.$entry->user_login.'</td>';
                 }else {
                     $account_output .= '<td>'.$entry->user_login.'</td>';

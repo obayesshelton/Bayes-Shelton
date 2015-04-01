@@ -1,16 +1,11 @@
 <?php
-
+if ( !defined( 'ABSPATH' ) ) { exit; } // Prevent direct access to file
 class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
 {
     var $menu_page_slug = AIOWPSEC_FILESYSTEM_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'File Permissions', 
-        'tab2' => 'PHP File Editing',
-        'tab3' => 'WP File Access',
-        'tab4' => 'Host System Logs',
-        );
+    var $menu_tabs;
 
     var $menu_tabs_handler = array(
         'tab1' => 'render_tab1', 
@@ -25,6 +20,16 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
         add_action( 'admin_footer', array( &$this, 'filesystem_menu_footer_code' ) );
     }
     
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+        'tab1' => __('File Permissions','aiowpsecurity'), 
+        'tab2' => __('PHP File Editing','aiowpsecurity'),
+        'tab3' => __('WP File Access','aiowpsecurity'),
+        'tab4' => __('Host System Logs','aiowpsecurity'),
+        );
+    }
+
     function get_current_tab() 
     {
         $tab_keys = array_keys($this->menu_tabs);
@@ -53,6 +58,7 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -169,10 +175,10 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
             if(isset($_POST['aiowps_disable_file_editing']))
             {
 
-                $res = $this->disable_file_edits();
+                $res = AIOWPSecurity_Utility::disable_file_edits();//$this->disable_file_edits();
             } else 
             {
-                $res = $this->enable_file_edits();
+                $res = AIOWPSecurity_Utility::enable_file_edits();//$this->enable_file_edits();
             }
             if ($res)
             {
@@ -182,6 +188,11 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
                 
                 //Recalculate points after the feature status/options have been altered
                 $aiowps_feature_mgr->check_feature_status_and_recalculate_points();
+                $this->show_msg_updated(__('Your PHP file editing settings were saved successfully.', 'aiowpsecurity'));
+            }
+            else
+            {
+                $this->show_msg_error(__('Operation failed! Unable to modify or make a backup of wp-config.php file!', 'aiowpsecurity'));
             }
             //$this->show_msg_settings_updated();
 
@@ -302,7 +313,20 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
     function render_tab4()
     {
         global $aio_wp_security;
-
+        
+        if (isset($_POST['aiowps_system_log_file'])){
+            if ($_POST['aiowps_system_log_file'] != NULL){
+                $sys_log_file = sanitize_text_field($_POST['aiowps_system_log_file']);
+                $aio_wp_security->configs->set_value('aiowps_system_log_file',$sys_log_file);
+            }else{
+                $sys_log_file = 'error_log';
+                $aio_wp_security->configs->set_value('aiowps_system_log_file',$sys_log_file);
+            }
+            $aio_wp_security->configs->save_config();
+        }else{
+            $sys_log_file = $aio_wp_security->configs->get_value('aiowps_system_log_file');
+        }
+        
         ?>
         <h2><?php _e('System Logs', 'aiowpsecurity')?></h2>
         <div class="aio_blue_box">
@@ -320,6 +344,11 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
             <p>Please click the button below to view the latest system logs:</p>
             <form action="" method="POST">
                 <?php wp_nonce_field('aiowpsec-view-system-logs-nonce'); ?>
+                <div><?php _e('Enter System Log File Name', 'aiowpsecurity')?>:
+                <input type="text" size="25" name="aiowps_system_log_file" value="<?php echo sanitize_text_field($sys_log_file); ?>" />
+                <span class="description"><?php _e('Enter your system log file name. (Defaults to error_log)', 'aiowpsecurity'); ?></span>
+                </div>
+                <div class="aio_spacer_15"></div>
                 <input type="submit" name="aiowps_search_error_files" value="<?php _e('View Latest System Logs', 'aiowpsecurity'); ?>" class="button-primary search-error-files" />
                 <span class="aiowps_loading_1">
                     <img src="<?php echo AIO_WP_SECURITY_URL.'/images/loading.gif'; ?>" alt="<?php __('Loading...', 'aiowpsecurity'); ?>" />
@@ -335,8 +364,8 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
                 $aio_wp_security->debug_logger->log_debug("Nonce check failed on view system log operation!",4);
                 die("Nonce check failed on view system log operation!");
             }
-
-            $logResults = AIOWPSecurity_Utility_File::recursive_file_search('error_log', 0, ABSPATH);
+            
+            $logResults = AIOWPSecurity_Utility_File::recursive_file_search($sys_log_file, 0, ABSPATH);
             if (empty($logResults) || $logResults == NULL || $logResults == '' || $logResults === FALSE)
             {
                 $this->show_msg_updated(__('No system logs were found!', 'aiowpsecurity'));
@@ -404,130 +433,6 @@ class AIOWPSecurity_Filesystem_Menu extends AIOWPSecurity_Admin_Menu
     }
     
     
-    /*
-     * Modifies the wp-config.php file to disable PHP file editing from the admin panel
-     * This func will add the following code:
-     * define('DISALLOW_FILE_EDIT', false);
-     * 
-     * NOTE: This function will firstly check if the above code already exists and it will modify the bool value, otherwise it will insert the code mentioned above
-     */
-    function disable_file_edits()
-    {
-        global $aio_wp_security;
-        $edit_file_config_entry_exists = false;
-        
-        //Config file path
-        $config_file = ABSPATH.'wp-config.php';
-
-        //Get wp-config.php file contents so we can check if the "DISALLOW_FILE_EDIT" variable already exists
-        $config_contents = file($config_file);
-	foreach ($config_contents as $line_num => $line) 
-        {
-            if (strpos($line, "'DISALLOW_FILE_EDIT', false"))
-            {
-                $config_contents[$line_num] = str_replace('false', 'true', $line);
-                $edit_file_config_entry_exists = true;
-                //$this->show_msg_updated(__('Settings Saved - The ability to edit PHP files via the admin the panel has been DISABLED.', 'aiowpsecurity'));
-            } else if(strpos($line, "'DISALLOW_FILE_EDIT', true"))
-            {
-                $edit_file_config_entry_exists = true;
-                $this->show_msg_updated(__('Your system config file is already configured to disallow PHP file editing.', 'aiowpsecurity'));
-                return true;
-                
-            }
-	}
-        
-        if ($edit_file_config_entry_exists)
-        {
-            //Now let's modify the wp-config.php file
-            if (AIOWPSecurity_Utility_File::write_content_to_file($config_file, $config_contents))
-            {
-                $this->show_msg_updated(__('Settings Saved - Your system is now configured to not allow PHP file editing.', 'aiowpsecurity'));
-                return true;
-            }else
-            {
-                $this->show_msg_error(__('Operation failed! Unable to modify wp-config.php file!', 'aiowpsecurity'));
-                $aio_wp_security->debug_logger->log_debug("Disable PHP File Edit - Unable to modify wp-config.php",4);
-                return false;
-            }
-        }else
-        {
-            //Make a backup of the config file
-            if(!AIOWPSecurity_Utility_File::backup_a_file($config_file))
-            {
-                $this->show_msg_error(__('Failed to make a backup of the wp-config.php file. This operation will not go ahead.', 'aiowpsecurity'));
-                $aio_wp_security->debug_logger->log_debug("Disable PHP File Edit - Failed to make a backup of the wp-config.php file.",4);
-                return false;
-            }
-            else{
-                $this->show_msg_updated(__('A backup copy of your wp-config.php file was created successfully....', 'aiowpsecurity'));
-            }
-
-            //Construct the config code which we will insert into wp-config.php
-            $new_snippet = "//Disable File Edits\n";
-            $new_snippet .= 'define(\'DISALLOW_FILE_EDIT\', true);';
-            $write_result = file_put_contents($config_file, $new_snippet, FILE_APPEND | LOCK_EX);
-            if ($write_result)
-            {
-                $this->show_msg_updated(__('Settings Saved - Your system is now configured to not allow PHP file editing.', 'aiowpsecurity'));
-            }else
-            {
-                $this->show_msg_error(__('Operation failed! Unable to modify wp-config.php file!', 'aiowpsecurity')); 
-            }
-        }
-            return $write_result; //will return true or false depending on whether file write was successful
-    }
-
-    /*
-     * Modifies the wp-config.php file to allow PHP file editing from the admin panel
-     * This func will modify the following code by replacing "true" with "false":
-     * define('DISALLOW_FILE_EDIT', true);
-     */
-    
-    function enable_file_edits()
-    {
-        global $aio_wp_security;
-        $edit_file_config_entry_exists = false;
-        
-        //Config file path
-        $config_file = ABSPATH.'wp-config.php';
-
-        //Get wp-config.php file contents
-        $config_contents = file($config_file);
-	foreach ($config_contents as $line_num => $line) 
-        {
-            if (strpos($line, "'DISALLOW_FILE_EDIT', true"))
-            {
-                $config_contents[$line_num] = str_replace('true', 'false', $line);
-                $edit_file_config_entry_exists = true;
-            } else if(strpos($line, "'DISALLOW_FILE_EDIT', false"))
-            {
-                $edit_file_config_entry_exists = true;
-                $this->show_msg_updated(__('Your system config file is already configured to allow PHP file editing.', 'aiowpsecurity'));
-                return true;
-            }
-        }
-        
-        if (!$edit_file_config_entry_exists)
-        {
-            //if the DISALLOW_FILE_EDIT settings don't exist in wp-config.php then we don't need to do anything
-            $this->show_msg_updated(__('Your system config file is already configured to allow PHP file editing.', 'aiowpsecurity'));
-            return true;
-        } else
-        {
-            //Now let's modify the wp-config.php file
-            if (AIOWPSecurity_Utility_File::write_content_to_file($config_file, $config_contents))
-            {
-                $this->show_msg_updated(__('Settings Saved - Your system is now configured to allow PHP file editing.', 'aiowpsecurity'));
-                return true;
-            }else
-            {
-                $this->show_msg_error(__('Operation failed! Unable to modify wp-config.php file!', 'aiowpsecurity'));
-                $aio_wp_security->debug_logger->log_debug("Disable PHP File Edit - Unable to modify wp-config.php",4);
-                return false;
-            }
-        }
-    }
     
     function filesystem_menu_footer_code()
     {

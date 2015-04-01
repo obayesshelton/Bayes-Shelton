@@ -152,4 +152,310 @@ class AIOWPSecurity_Utility
         echo '</div>';
     }
     
+    /*
+     * Modifies the wp-config.php file to disable PHP file editing from the admin panel
+     * This func will add the following code:
+     * define('DISALLOW_FILE_EDIT', false);
+     * 
+     * NOTE: This function will firstly check if the above code already exists and it will modify the bool value, otherwise it will insert the code mentioned above
+     */
+    static function disable_file_edits()
+    {
+        global $aio_wp_security;
+        $edit_file_config_entry_exists = false;
+        
+        //Config file path
+        $config_file = AIOWPSecurity_Utility_File::get_wp_config_file_path();
+
+        //Get wp-config.php file contents so we can check if the "DISALLOW_FILE_EDIT" variable already exists
+        $config_contents = file($config_file);
+
+        foreach ($config_contents as $line_num => $line) 
+        {
+            if (strpos($line, "'DISALLOW_FILE_EDIT', false"))
+            {
+                $config_contents[$line_num] = str_replace('false', 'true', $line);
+                $edit_file_config_entry_exists = true;
+                //$this->show_msg_updated(__('Settings Saved - The ability to edit PHP files via the admin the panel has been DISABLED.', 'aiowpsecurity'));
+            } else if(strpos($line, "'DISALLOW_FILE_EDIT', true"))
+            {
+                $edit_file_config_entry_exists = true;
+                //$this->show_msg_updated(__('Your system config file is already configured to disallow PHP file editing.', 'aiowpsecurity'));
+                return true;
+                
+            }
+            
+            //For wp-config.php files originating from early WP versions we will remove the closing php tag
+            if (strpos($line, "?>") !== false)
+            {
+                $config_contents[$line_num] = str_replace("?>", "", $line);
+            }
+	}
+        
+        if (!$edit_file_config_entry_exists)
+        {
+            //Construct the config code which we will insert into wp-config.php
+            $new_snippet = '//Disable File Edits' . PHP_EOL;
+            $new_snippet .= 'define(\'DISALLOW_FILE_EDIT\', true);';
+            $config_contents[] = $new_snippet; //Append the new snippet to the end of the array
+        }
+        
+        //Make a backup of the config file
+        if(!AIOWPSecurity_Utility_File::backup_and_rename_wp_config($config_file))
+        {
+            $this->show_msg_error(__('Failed to make a backup of the wp-config.php file. This operation will not go ahead.', 'aiowpsecurity'));
+            //$aio_wp_security->debug_logger->log_debug("Disable PHP File Edit - Failed to make a backup of the wp-config.php file.",4);
+            return false;
+        }
+        else{
+            //$this->show_msg_updated(__('A backup copy of your wp-config.php file was created successfully....', 'aiowpsecurity'));
+        }
+
+        //Now let's modify the wp-config.php file
+        if (AIOWPSecurity_Utility_File::write_content_to_file($config_file, $config_contents))
+        {
+            //$this->show_msg_updated(__('Settings Saved - Your system is now configured to not allow PHP file editing.', 'aiowpsecurity'));
+            return true;
+        }else
+        {
+            //$this->show_msg_error(__('Operation failed! Unable to modify wp-config.php file!', 'aiowpsecurity'));
+            $aio_wp_security->debug_logger->log_debug("Disable PHP File Edit - Unable to modify wp-config.php",4);
+            return false;
+        }
+    }
+
+    /*
+     * Modifies the wp-config.php file to allow PHP file editing from the admin panel
+     * This func will modify the following code by replacing "true" with "false":
+     * define('DISALLOW_FILE_EDIT', true);
+     */
+    
+    static function enable_file_edits()
+    {
+        global $aio_wp_security;
+        $edit_file_config_entry_exists = false;
+        
+        //Config file path
+        $config_file = AIOWPSecurity_Utility_File::get_wp_config_file_path();
+
+        //Get wp-config.php file contents
+        $config_contents = file($config_file);
+	foreach ($config_contents as $line_num => $line) 
+        {
+            if (strpos($line, "'DISALLOW_FILE_EDIT', true"))
+            {
+                $config_contents[$line_num] = str_replace('true', 'false', $line);
+                $edit_file_config_entry_exists = true;
+            } else if(strpos($line, "'DISALLOW_FILE_EDIT', false"))
+            {
+                $edit_file_config_entry_exists = true;
+                //$this->show_msg_updated(__('Your system config file is already configured to allow PHP file editing.', 'aiowpsecurity'));
+                return true;
+            }
+        }
+        
+        if (!$edit_file_config_entry_exists)
+        {
+            //if the DISALLOW_FILE_EDIT settings don't exist in wp-config.php then we don't need to do anything
+            //$this->show_msg_updated(__('Your system config file is already configured to allow PHP file editing.', 'aiowpsecurity'));
+            return true;
+        } else
+        {
+            //Now let's modify the wp-config.php file
+            if (AIOWPSecurity_Utility_File::write_content_to_file($config_file, $config_contents))
+            {
+                //$this->show_msg_updated(__('Settings Saved - Your system is now configured to allow PHP file editing.', 'aiowpsecurity'));
+                return true;
+            }else
+            {
+                //$this->show_msg_error(__('Operation failed! Unable to modify wp-config.php file!', 'aiowpsecurity'));
+                //$aio_wp_security->debug_logger->log_debug("Disable PHP File Edit - Unable to modify wp-config.php",4);
+                return false;
+            }
+        }
+    }
+    
+    
+    /**
+     * Inserts event logs to the database
+     * For now we are using for 404 events but in future will expand for other events
+     *
+     * @param string $event_type: Event type, eg, 404 (see below for list of event types)
+     * @param string $username (optional): username
+     * 
+     * Event types: 404 (...add more as we expand this)
+     *
+     **/
+    static function event_logger($event_type, $username='' )
+    {
+        global $wpdb, $aio_wp_security;
+
+        //Some initialising
+        $url = '';
+        $ip_or_host = '';
+        $referer_info = '';
+        $event_data = '';
+        
+        $events_table_name = AIOWPSEC_TBL_EVENTS;
+        
+        $ip_or_host = AIOWPSecurity_Utility_IP::get_user_ip_address(); //Get the IP address of user
+        $username = sanitize_user($username);
+	$user = get_user_by('login',$username); //Returns WP_User object if exists
+        if($user)
+        {
+            //If valid user set variables for DB storage later on
+            $user_id = (absint($user->ID) > 0) ? $user->ID : 0;
+        }else{
+            //If the login attempt was made using a non-existent user then let's set user_id to blank and record the attempted user login name for DB storage later on
+            $user_id = 0;
+        }
+        
+        if ($event_type == '404'){ 
+            //if 404 event get some relevant data
+            $url = isset($_SERVER['REQUEST_URI'])?esc_attr($_SERVER['REQUEST_URI']):'';
+            $referer_info = isset($_SERVER['HTTP_REFERER'])?esc_attr($_SERVER['HTTP_REFERER']):'';
+        }
+
+        $data = array(
+                'event_type' => $event_type,
+                'username' => $username,
+                'user_id' => $user_id,
+                'event_date' => current_time('mysql'),
+                'ip_or_host' => $ip_or_host,
+                'referer_info' => $referer_info,
+                'url' => $url,
+                'event_data' => '',
+            );
+
+        //log to database
+        $result = $wpdb->insert($events_table_name, $data);
+        if ($result == FALSE)
+        {
+            $aio_wp_security->debug_logger->log_debug("event_logger: Error inserting record into ".$events_table_name,4);//Log the highly unlikely event of DB error
+        }
+    }
+    
+    /**
+     * Checks if IP address is locked
+     *
+     * @param string $ip: ip address
+     * @returns TRUE if locked, FALSE otherwise
+     *
+     **/
+    static function check_locked_ip($ip)
+    {
+        global $wpdb;
+        $login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
+        $locked_ip = $wpdb->get_row("SELECT * FROM $login_lockdown_table " .
+                                        "WHERE release_date > now() AND " .
+                                        "failed_login_ip = '" . esc_sql($ip) . "'", ARRAY_A);
+        if($locked_ip != NULL){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    } 
+    
+    /**
+     * Returns list of IP addresses locked out
+     *
+     * * @returns array of addresses or FALSE otherwise
+     *
+     **/
+    static function get_locked_ips()
+    {
+        global $wpdb;
+        $login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
+        $locked_ips = $wpdb->get_results("SELECT * FROM $login_lockdown_table " .
+                                        "WHERE release_date > now()", ARRAY_A);
+        if($locked_ips != NULL){
+            return $locked_ips;
+        }else{
+            return FALSE;
+        }
+    } 
+    
+    
+    /*
+     * Locks an IP address - Adds an entry to the aiowps_lockdowns table
+     */
+    static function lock_IP($ip, $lock_reason='', $username='')
+    {
+        global $wpdb, $aio_wp_security;
+        $login_lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
+        $lockout_time_length = $aio_wp_security->configs->get_value('aiowps_lockout_time_length'); //TODO add a setting for this feature
+        $username = sanitize_user($username);
+	$user = get_user_by('login',$username); //Returns WP_User object if exists
+
+        if (FALSE == $user) {
+            // Not logged in.
+            $username = '';
+            $user_id = 0;
+        } else {
+            // Logged in.
+            $username = sanitize_user($user->user_login);
+            $user_id = $user->ID;
+        }
+
+        $ip_str = esc_sql($ip);
+        $insert = "INSERT INTO " . $login_lockdown_table . " (user_id, user_login, lockdown_date, release_date, failed_login_IP, lock_reason) " .
+                        "VALUES ('" . $user_id . "', '" . $username . "', now(), date_add(now(), INTERVAL " .
+                        $lockout_time_length . " MINUTE), '" . $ip_str . "', '" . $lock_reason . "')";
+        $result = $wpdb->query($insert);
+        if ($result > 0)
+        {
+        }
+        else if ($result == FALSE)
+        {
+            $aio_wp_security->debug_logger->log_debug("lock_IP: Error inserting record into ".$login_lockdown_table,4);//Log the highly unlikely event of DB error
+        }
+    }
+    
+    /*
+     * Returns an array of blog_ids for a multisite install
+     * If site is not multisite returns empty array
+     */
+    static function get_blog_ids()
+    {
+        global $wpdb, $aio_wp_security;
+        if (AIOWPSecurity_Utility::is_multisite_install()) {
+            global $wpdb;
+            $blog_ids = $wpdb->get_col("SELECT blog_id FROM ".$wpdb->prefix."blogs");
+        }else{
+            $blog_ids = array();
+        }
+        return $blog_ids;
+    }
+    
+    
+    //This function will delete the oldest rows from a table which are over the max amount of rows specified 
+    static function cleanup_table($table_name, $max_rows = '10000')
+    {
+        global $wpdb, $aio_wp_security;
+
+        $num_rows = $wpdb->get_var("select count(*) from $table_name");
+        $result = true;
+        if($num_rows > $max_rows){
+            //if the table has more than max entries delete oldest rows
+            
+            $del_sql = "DELETE FROM $table_name
+                        WHERE id <= (
+                          SELECT id
+                          FROM (
+                            SELECT id
+                            FROM $table_name
+                            ORDER BY id DESC
+                            LIMIT 1 OFFSET $max_rows
+                          ) foo_tmp
+                        )";
+            
+            $result = $wpdb->query($del_sql);
+            if($result === false){
+                $aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Utility::cleanup_table failed for table name: ".$table_name,4);
+            }
+        }
+        return ($result === false)?false:true;
+    }
+
+    
 }

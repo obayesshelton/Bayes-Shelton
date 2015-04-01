@@ -5,17 +5,13 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
     var $menu_page_slug = AIOWPSEC_USER_LOGIN_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'Login Lockdown', 
-        'tab2' => 'Failed Login Records',
-        'tab3' => 'Force Logout',
-        'tab4' => 'Account Activity',
-        );
+    var $menu_tabs;
     var $menu_tabs_handler = array(
         'tab1' => 'render_tab1', 
         'tab2' => 'render_tab2',
         'tab3' => 'render_tab3',
         'tab4' => 'render_tab4',
+        'tab5' => 'render_tab5',
         );
     
     function __construct() 
@@ -23,6 +19,17 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
         $this->render_user_login_menu_page();
     }
     
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+        'tab1' => __('Login Lockdown', 'aiowpsecurity'),
+        'tab2' => __('Failed Login Records', 'aiowpsecurity'),
+        'tab3' => __('Force Logout', 'aiowpsecurity'),
+        'tab4' => __('Account Activity Logs', 'aiowpsecurity'),
+        'tab5' => __('Logged In Users', 'aiowpsecurity'),
+        );
+    }
+
     function get_current_tab() 
     {
         $tab_keys = array_keys($this->menu_tabs);
@@ -51,6 +58,7 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_user_login_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -116,11 +124,16 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
             }
 
             //Save all the form values to the options
+            $random_20_digit_string = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(20); //Generate random 20 char string for use during captcha encode/decode
+            $aio_wp_security->configs->set_value('aiowps_unlock_request_secret_key', $random_20_digit_string);
+            
             $aio_wp_security->configs->set_value('aiowps_enable_login_lockdown',isset($_POST["aiowps_enable_login_lockdown"])?'1':'');
+            $aio_wp_security->configs->set_value('aiowps_allow_unlock_requests',isset($_POST["aiowps_allow_unlock_requests"])?'1':'');
             $aio_wp_security->configs->set_value('aiowps_max_login_attempts',absint($max_login_attempt_val));
             $aio_wp_security->configs->set_value('aiowps_retry_time_period',absint($login_retry_time_period));
             $aio_wp_security->configs->set_value('aiowps_lockout_time_length',absint($lockout_time_length));
             $aio_wp_security->configs->set_value('aiowps_set_generic_login_msg',isset($_POST["aiowps_set_generic_login_msg"])?'1':'');
+            $aio_wp_security->configs->set_value('aiowps_enable_invalid_username_lockdown',isset($_POST["aiowps_enable_invalid_username_lockdown"])?'1':'');
             $aio_wp_security->configs->set_value('aiowps_enable_email_notify',isset($_POST["aiowps_enable_email_notify"])?'1':'');
             $aio_wp_security->configs->set_value('aiowps_email_address',$email_address);
             $aio_wp_security->configs->save_config();
@@ -146,7 +159,7 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
         <h2><?php _e('Login Lockdown Configuration', 'aiowpsecurity')?></h2>
         <div class="aio_blue_box">
             <?php
-            $brute_force_login_feature_link = '<a href="admin.php?page='.AIOWPSEC_FIREWALL_MENU_SLUG.'&tab=tab4">Cookie-Based Brute Force Login Prevention</a>';
+            $brute_force_login_feature_link = '<a href="admin.php?page='.AIOWPSEC_BRUTE_FORCE_MENU_SLUG.'&tab=tab2">Cookie-Based Brute Force Login Prevention</a>';
             echo '<p>'.__('One of the ways hackers try to compromise sites is via a ', 'aiowpsecurity').'<strong>'.__('Brute Force Login Attack', 'aiowpsecurity').'</strong>.
             <br />'.__('This is where attackers use repeated login attempts until they guess the password.', 'aiowpsecurity').'
             <br />'.__('Apart from choosing strong passwords, monitoring and blocking IP addresses which are involved in repeated login failures in a short period of time is a very effective way to stop these types of attacks.', 'aiowpsecurity').
@@ -174,20 +187,27 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
                 </td>
             </tr>            
             <tr valign="top">
+                <th scope="row"><?php _e('Allow Unlock Requests', 'aiowpsecurity')?>:</th>                
+                <td>
+                <input name="aiowps_allow_unlock_requests" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_allow_unlock_requests')=='1') echo ' checked="checked"'; ?> value="1"/>
+                <span class="description"><?php _e('Check this if you want to allow users to generate an automated unlock request link which will unlock their account', 'aiowpsecurity'); ?></span>
+                </td>
+            </tr>            
+            <tr valign="top">
                 <th scope="row"><?php _e('Max Login Attempts', 'aiowpsecurity')?>:</th>
-                <td><input size="5" name="aiowps_max_login_attempts" value="<?php echo $aio_wp_security->configs->get_value('aiowps_max_login_attempts'); ?>" />
+                <td><input type="text" size="5" name="aiowps_max_login_attempts" value="<?php echo $aio_wp_security->configs->get_value('aiowps_max_login_attempts'); ?>" />
                 <span class="description"><?php _e('Set the value for the maximum login retries before IP address is locked out', 'aiowpsecurity'); ?></span>
                 </td> 
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e('Login Retry Time Period (min)', 'aiowpsecurity')?>:</th>
-                <td><input size="5" name="aiowps_retry_time_period" value="<?php echo $aio_wp_security->configs->get_value('aiowps_retry_time_period'); ?>" />
+                <td><input type="text" size="5" name="aiowps_retry_time_period" value="<?php echo $aio_wp_security->configs->get_value('aiowps_retry_time_period'); ?>" />
                 <span class="description"><?php _e('If the maximum number of failed login attempts for a particular IP address occur within this time period the plugin will lock out that address', 'aiowpsecurity'); ?></span>
                 </td> 
             </tr>
             <tr valign="top">
                 <th scope="row"><?php _e('Time Length of Lockout (min)', 'aiowpsecurity')?>:</th>
-                <td><input size="5" name="aiowps_lockout_time_length" value="<?php echo $aio_wp_security->configs->get_value('aiowps_lockout_time_length'); ?>" />
+                <td><input type="text" size="5" name="aiowps_lockout_time_length" value="<?php echo $aio_wp_security->configs->get_value('aiowps_lockout_time_length'); ?>" />
                 <span class="description"><?php _e('Set the length of time for which a particular IP address will be prevented from logging in', 'aiowpsecurity'); ?></span>
                 </td> 
             </tr>
@@ -197,13 +217,21 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
                 <input name="aiowps_set_generic_login_msg" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_set_generic_login_msg')=='1') echo ' checked="checked"'; ?> value="1"/>
                 <span class="description"><?php _e('Check this if you want to show a generic error message when a login attempt fails', 'aiowpsecurity'); ?></span>
                 </td>
+            </tr>
+            <tr valign="top">
+                <th scope="row"><?php _e('Instantly Lockout Invalid Usernames', 'aiowpsecurity')?>:</th>                
+                <td>
+                <input name="aiowps_enable_invalid_username_lockdown" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_enable_invalid_username_lockdown')=='1') echo ' checked="checked"'; ?> value="1"/>
+                <span class="description"><?php _e('Check this if you want to instantly lockout login attempts with usernames which do not exist on your system', 'aiowpsecurity'); ?></span>
+                </td>
             </tr>            
+            
             <tr valign="top">
                 <th scope="row"><?php _e('Notify By Email', 'aiowpsecurity')?>:</th>
                 <td>
                     <input name="aiowps_enable_email_notify" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_enable_email_notify')=='1') echo ' checked="checked"'; ?> value="1"/>
                     <span class="description"><?php _e('Check this if you want to receive an email when someone has been locked out due to maximum failed login attempts', 'aiowpsecurity'); ?></span>
-                    <br /><input size="30" name="aiowps_email_address" value="<?php echo $aio_wp_security->configs->get_value('aiowps_email_address'); ?>" />
+                    <br /><input type="text" size="30" name="aiowps_email_address" value="<?php echo $aio_wp_security->configs->get_value('aiowps_email_address'); ?>" />
                     <span class="description"><?php _e('Enter an email address', 'aiowpsecurity'); ?></span>
                 </td> 
             </tr>
@@ -214,22 +242,16 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
         <div class="postbox">
         <h3><label for="title"><?php _e('Currently Locked Out IP Address Ranges', 'aiowpsecurity'); ?></label></h3>
         <div class="inside">
-            <?php 
-            //Fetch, prepare, sort, and filter our data...
-            $locked_ip_list->prepare_items();
-            //echo "put table of locked entries here"; 
-            ?>
-            <form id="tables-filter" method="get" onSubmit="return confirm('Are you sure you want to perform this bulk operation on the selected entries?');">
-            <!-- For plugins, we also need to ensure that the form posts back to our current page -->
-            <input type="hidden" name="page" value="<?php echo $_REQUEST['page']; ?>" />
-            <input type="hidden" name="tab" value="<?php echo $_REQUEST['tab']; ?>" />
-            <!-- Now we can render the completed list table -->
-            <?php $locked_ip_list->display(); ?>
-            </form>
+            <div class="aio_blue_box aio_width_80">
+                <?php
+                $locked_ips_link = '<a href="admin.php?page='.AIOWPSEC_MAIN_MENU_SLUG.'&tab=tab3">Locked IP Addresses</a>';
+                echo '<p>'.sprintf( __('To see a list of all locked IP addresses and ranges go to the %s tab in the dashboard menu.', 'aiowpsecurity'), $locked_ips_link).'</p>';
+                ?>
+            </div>
         </div></div>
         <?php
     }
-    
+
     function render_tab2()
     {
         global $aio_wp_security, $wpdb;
@@ -326,6 +348,12 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
                 $error .= '<br />'.__('You entered a non numeric value for the logout time period field. It has been set to the default value.','aiowpsecurity');
                 $logout_time_period = '1';//Set it to the default value for this field
             }
+            else
+            {
+                if($logout_time_period < 1){
+                    $logout_time_period = '1';
+                }
+            }
 
             if($error)
             {
@@ -371,7 +399,7 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
             </tr>            
             <tr valign="top">
                 <th scope="row"><?php _e('Logout the WP User After XX Minutes', 'aiowpsecurity')?>:</th>
-                <td><input size="5" name="aiowps_logout_time_period" value="<?php echo $aio_wp_security->configs->get_value('aiowps_logout_time_period'); ?>" />
+                <td><input type="text" size="5" name="aiowps_logout_time_period" value="<?php echo $aio_wp_security->configs->get_value('aiowps_logout_time_period'); ?>" />
                 <span class="description"><?php _e('(Minutes) The user will be forced to log back in after this time period has elapased.', 'aiowpsecurity'); ?></span>
                 </td> 
             </tr>
@@ -384,7 +412,6 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
     
     function render_tab4()
     {
-        //TODO - needs completing...
         include_once 'wp-security-list-acct-activity.php'; //For rendering the AIOWPSecurity_List_Table in tab4
         $acct_activity_list = new AIOWPSecurity_List_Account_Activity(); //For rendering the AIOWPSecurity_List_Table in tab2
         if(isset($_REQUEST['action'])) //Do row action tasks for list table form for login activity display
@@ -420,6 +447,67 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
         <?php
     }
     
+    function render_tab5()
+    {
+        $logged_in_users = (AIOWPSecurity_Utility::is_multisite_install() ? get_site_transient('users_online') : get_transient('users_online'));
+        
+        global $aio_wp_security;
+        include_once 'wp-security-list-logged-in-users.php'; //For rendering the AIOWPSecurity_List_Table
+        $user_list = new AIOWPSecurity_List_Logged_In_Users();
+        
+        if (isset($_POST['aiowps_refresh_logged_in_user_list']))
+        {
+            $nonce=$_REQUEST['_wpnonce'];
+            if (!wp_verify_nonce($nonce, 'aiowpsec-logged-in-users-nonce'))
+            {
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed for users logged in list!",4);
+                die(__('Nonce check failed for users logged in list!','aiowpsecurity'));
+            }
+            
+            $user_list->prepare_items();
+        
+//        if(isset($_REQUEST['action'])) //Do list table form row action tasks
+//        {
+            //no actions for now
+//        }
+        }
+
+        ?>
+        <div class="postbox">
+        <h3><label for="title"><?php _e('Refresh Logged In User Data', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
+        <form action="" method="POST">
+        <?php wp_nonce_field('aiowpsec-logged-in-users-nonce'); ?>
+        <input type="submit" name="aiowps_refresh_logged_in_user_list" value="<?php _e('Refresh Data', 'aiowpsecurity')?>" class="button-primary" />
+        </form>
+        </div></div>
+        
+        <div class="aio_blue_box">
+            <?php
+            echo '<p>'.__('This tab displays all users who are currently logged into your site.', 'aiowpsecurity').'
+                <br />'.__('If you suspect there is a user or users who are logged in which should not be, you can block them by inspecting the IP addresses from the data below and adding them to your blacklist.', 'aiowpsecurity').'
+            </p>';
+            ?>
+        </div>
+        <div class="postbox">
+        <h3><label for="title"><?php _e('Currently Logged In Users', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
+            <?php
+            //Fetch, prepare, sort, and filter our data...
+            $user_list->prepare_items();
+            //echo "put table of locked entries here"; 
+            ?>
+            <form id="tables-filter" method="get" onSubmit="return confirm('Are you sure you want to perform this bulk operation on the selected entries?');">
+            <!-- For plugins, we also need to ensure that the form posts back to our current page -->
+            <input type="hidden" name="page" value="<?php echo $_REQUEST['page']; ?>" />
+            <input type="hidden" name="tab" value="<?php echo $_REQUEST['tab']; ?>" />
+            <!-- Now we can render the completed list table -->
+            <?php $user_list->display(); ?>
+            </form>
+        </div></div>
+        <?php
+
+    }
 
     /*
      * This function will unlock an IP range by modifying the "release_date" column of a record in the "login_lockdown" table
@@ -436,7 +524,7 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
             $result = $wpdb->query($unlock_command);
             if($result != NULL)
             {
-                $this->show_msg_updated(__('The selected IP ranges were unlocked successfully!','aiowpsecurity'));
+                $this->show_msg_updated(__('The selected IP entries were unlocked successfully!','aiowpsecurity'));
             }
         } elseif ($entries != NULL)
         {
@@ -445,7 +533,7 @@ class AIOWPSecurity_User_Login_Menu extends AIOWPSecurity_Admin_Menu
             $result = $wpdb->query($unlock_command);
             if($result != NULL)
             {
-                $this->show_msg_updated(__('The selected IP range was unlocked successfully!','aiowpsecurity'));
+                $this->show_msg_updated(__('The selected IP entry was unlocked successfully!','aiowpsecurity'));
             }
         }
         //$aio_wp_security->debug_logger->log_debug("IP range unlocked from login_lockdown table - lockdown ID: ".$lockdown_id,0);

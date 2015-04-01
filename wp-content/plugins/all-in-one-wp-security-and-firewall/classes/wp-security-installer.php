@@ -18,17 +18,20 @@ class AIOWPSecurity_Installer
                     AIOWPSecurity_Installer::create_db_tables();
                     AIOWPSecurity_Configure_Settings::add_option_values();
                 }
+                AIOWPSecurity_Installer::create_db_backup_dir(); //Create a backup dir in the WP uploads directory
                 switch_to_blog($old_blog);
                 return;
             }
         }
         AIOWPSecurity_Installer::create_db_tables();
         AIOWPSecurity_Configure_Settings::add_option_values();
+        AIOWPSecurity_Installer::create_db_backup_dir(); //Create a backup dir in the WP uploads directory
+        
     }
     
     static function create_db_tables()
     {
-        //global $wpdb;
+        global $wpdb;
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
         
         //"User Login" related tables
@@ -36,7 +39,18 @@ class AIOWPSecurity_Installer
         $failed_login_tbl_name = AIOWPSEC_TBL_FAILED_LOGINS;
         $user_login_activity_tbl_name = AIOWPSEC_TBL_USER_LOGIN_ACTIVITY;
         $aiowps_global_meta_tbl_name = AIOWPSEC_TBL_GLOBAL_META_DATA;
+        $aiowps_event_tbl_name = AIOWPSEC_TBL_EVENTS;
 
+        $charset_collate = '';
+        if (!empty($wpdb->charset)){
+            $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+        }else{
+            $charset_collate = "DEFAULT CHARSET=utf8";
+        }
+        if (!empty($wpdb->collate)){
+            $charset_collate .= " COLLATE $wpdb->collate";
+        }
+                
 	$ld_tbl_sql = "CREATE TABLE " . $lockdown_tbl_name . " (
         id bigint(20) NOT NULL AUTO_INCREMENT,
         user_id bigint(20) NOT NULL,
@@ -44,8 +58,10 @@ class AIOWPSecurity_Installer
         lockdown_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
         release_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
         failed_login_ip varchar(100) NOT NULL DEFAULT '',
+        lock_reason varchar(128) NOT NULL DEFAULT '',
+        unlock_key varchar(128) NOT NULL DEFAULT '',
         PRIMARY KEY  (id)
-        )ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+        )" . $charset_collate . ";";
 	dbDelta($ld_tbl_sql);
 
 	$fl_tbl_sql = "CREATE TABLE " . $failed_login_tbl_name . " (
@@ -55,7 +71,7 @@ class AIOWPSecurity_Installer
         failed_login_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
         login_attempt_ip varchar(100) NOT NULL DEFAULT '',
         PRIMARY KEY  (id)
-        )ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+        )" . $charset_collate . ";";
 	dbDelta($fl_tbl_sql);
         
         $ula_tbl_sql = "CREATE TABLE " . $user_login_activity_tbl_name . " (
@@ -68,7 +84,7 @@ class AIOWPSecurity_Installer
         login_country varchar(150) NOT NULL DEFAULT '',
         browser_type varchar(150) NOT NULL DEFAULT '',
         PRIMARY KEY  (id)
-        )ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+        )" . $charset_collate . ";";
 	dbDelta($ula_tbl_sql);
 
         $gm_tbl_sql = "CREATE TABLE " . $aiowps_global_meta_tbl_name . " (
@@ -85,9 +101,92 @@ class AIOWPSecurity_Installer
         meta_value4 longtext NOT NULL,
         meta_value5 longtext NOT NULL,
         PRIMARY KEY  (meta_id)
-        )ENGINE=MyISAM DEFAULT CHARSET=utf8;";
+        )" . $charset_collate . ";";
         dbDelta($gm_tbl_sql);
                 
-	update_option("aiowpsec_db_version", AIO_WP_SECURITY_DB_VERSION);
+        $evt_tbl_sql = "CREATE TABLE " . $aiowps_event_tbl_name . " (
+        id bigint(20) NOT NULL AUTO_INCREMENT,
+        event_type VARCHAR(150) NOT NULL DEFAULT '',
+        username VARCHAR(150),
+        user_id bigint(20),
+        event_date datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+        ip_or_host varchar(100),
+        referer_info varchar(255),
+        url varchar(255),
+        event_data longtext,
+        PRIMARY KEY  (id)
+        )" . $charset_collate . ";";
+        dbDelta($evt_tbl_sql);
+
+        update_option("aiowpsec_db_version", AIO_WP_SECURITY_DB_VERSION);
     }
+    
+    static function create_db_backup_dir()
+    {
+        global $aio_wp_security;
+        //Create our folder in the "wp-content" directory
+        $aiowps_dir = WP_CONTENT_DIR.'/'.AIO_WP_SECURITY_BACKUPS_DIR_NAME;
+        if(!is_dir($aiowps_dir)) {
+            mkdir($aiowps_dir , 0755, true);
+            //Let's also create an empty index.html file in this folder
+            $index_file = $aiowps_dir.'/index.html';
+            $handle = fopen($index_file, 'w'); //or die('Cannot open file:  '.$index_file);
+            fclose($handle);
+        }
+        //Create an .htacces file
+        //Write some rules which will only allow people originating from wp admin page to download the DB backup
+        $rules = '';
+        $rules .= 'order deny,allow
+deny from all' . PHP_EOL;
+        $file = $aiowps_dir.'/.htaccess';
+        $write_result = file_put_contents($file, $rules);
+        if ($write_result === false)
+        {
+            $aio_wp_security->debug_logger->log_debug("Creation of .htaccess file in ".AIO_WP_SECURITY_BACKUPS_DIR_NAME." directory failed!",4);
+        }
+    }
+    
+    static function reactivation_tasks()
+    {
+        global $aio_wp_security;
+        $temp_cfgs = get_option('aiowps_temp_configs');
+        if($temp_cfgs !== FALSE){
+            //Case where previously installed plugin was reactivated
+            //Let's copy the original configs back to the options table
+            $updated = update_option('aio_wp_security_configs', $temp_cfgs);
+            if($updated === FALSE){
+                $aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Installer::run_installer() - Update of option settings failed upon plugin activation!",4);
+            }
+            $aio_wp_security->configs->configs = $temp_cfgs; //copy the original configs to memory
+            //Now let's write any rules to the .htaccess file if necessary
+            $res = AIOWPSecurity_Utility_Htaccess::write_to_htaccess();
+
+            if($res == -1)
+            {
+                $aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Deactivation::run_deactivation_tasks() - Could not write to the .htaccess file. Please check the file permissions.",4);
+                return false;
+            }
+            delete_option('aiowps_temp_configs');
+            return true;
+        }else{
+            $aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Deactivation::run_deactivation_tasks() - Original config settings not found!",4);
+            return false;
+        }
+    }
+
+//    //Read entire contents of file at activation time and store serialized contents in our global_meta table
+//    static function backup_file_contents_to_db_at_activation($src_file, $key_description)
+//    {
+//        //First check if a backup entry already exists in the global_meta table
+//        global $wpdb;
+//        $aiowps_global_meta_tbl_name = AIOWPSEC_TBL_GLOBAL_META_DATA;
+//        $resultset = $wpdb->get_row("SELECT * FROM $aiowps_global_meta_tbl_name WHERE meta_key1 = '$key_description'", OBJECT);
+//        if($resultset){
+//            return; //Don't override original backup if one exists - so just return
+//        }
+//        
+//        //Otherwise read the contents of the file and store in global_meta table
+//        AIOWPSecurity_Utility_File::backup_file_contents_to_db($src_file, $key_description);
+//        return;
+//    }
 }

@@ -18,11 +18,19 @@ class AIOWPSecurity_List_Locked_IP extends AIOWPSecurity_List_Table {
     }
         
     function column_failed_login_ip($item){
-        //$tab = strip_tags($_REQUEST['tab']);
+        $tab = isset($_REQUEST['tab'])?strip_tags($_REQUEST['tab']):'';
+        $delete_lockdown_record = sprintf('admin.php?page=%s&tab=%s&action=%s&lockdown_id=%s', AIOWPSEC_MAIN_MENU_SLUG, $tab, 'delete_blocked_ip', $item['id']);
+        //Add nonce to delete URL
+        $delete_lockdown_record_nonce = wp_nonce_url($delete_lockdown_record, "delete_lockdown_record", "aiowps_nonce");
+
+        $unlock_ip_url = sprintf('admin.php?page=%s&tab=%s&action=%s&lockdown_id=%s', AIOWPSEC_MAIN_MENU_SLUG, $tab, 'unlock_ip', $item['id']);
+        //Add nonce to unlock IP URL
+        $unlock_ip_nonce = wp_nonce_url($unlock_ip_url, "unlock_ip", "aiowps_nonce");
+        
         //Build row actions
         $actions = array(
-            'unlock' => sprintf('<a href="admin.php?page=%s&action=%s&lockdown_id=%s" onclick="return confirm(\'Are you sure you want to unlock this address range?\')">Unlock</a>',AIOWPSEC_USER_LOGIN_MENU_SLUG,'unlock_ip',$item['id']),
-            'delete' => sprintf('<a href="admin.php?page=%s&action=%s&lockdown_id=%s" onclick="return confirm(\'Are you sure you want to delete this item?\')">Delete</a>',AIOWPSEC_USER_LOGIN_MENU_SLUG,'delete_blocked_ip',$item['id']),
+            'unlock' => '<a href="'.$unlock_ip_nonce.'" onclick="return confirm(\'Are you sure you want to unlock this address range?\')">Unlock</a>',
+            'delete' => '<a href="'.$delete_lockdown_record_nonce.'" onclick="return confirm(\'Are you sure you want to delete this item?\')">Delete</a>',
         );
         
         //Return the user_login contents
@@ -44,9 +52,10 @@ class AIOWPSecurity_List_Locked_IP extends AIOWPSecurity_List_Table {
     function get_columns(){
         $columns = array(
             'cb' => '<input type="checkbox" />', //Render a checkbox
-            'failed_login_ip' => 'Locked IP Range',
+            'failed_login_ip' => 'Locked IP/Range',
             'user_id' => 'User ID',
             'user_login' => 'Username',
+            'lock_reason' => 'Reason',
             'lockdown_date' => 'Date Locked',
             'release_date' => 'Release Date'
         );
@@ -58,6 +67,7 @@ class AIOWPSecurity_List_Locked_IP extends AIOWPSecurity_List_Table {
             'failed_login_ip' => array('failed_login_ip',false),
             'user_id' => array('user_id',false),
             'user_login' => array('user_login',false),
+            'lock_reason' => array('lock_reason',false),
             'lockdown_date' => array('lockdown_date',false),
             'release_date' => array('release_date',false)
         );
@@ -106,22 +116,32 @@ class AIOWPSecurity_List_Locked_IP extends AIOWPSecurity_List_Table {
         $lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
         if (is_array($entries))
         {
-            //Unlock multiple records
-            $id_list = "(" .implode(",",$entries) .")"; //Create comma separate list for DB operation
-            $unlock_command = "UPDATE ".$lockdown_table." SET release_date = now() WHERE id IN ".$id_list;
-            $result = $wpdb->query($unlock_command);
-            if($result != NULL)
+            if (isset($_REQUEST['_wp_http_referer']))
             {
-                AIOWPSecurity_Admin_Menu::show_msg_updated_st(__('The selected IP ranges were unlocked successfully!','aiowpsecurity'));
+                //Unlock multiple records
+                $id_list = "(" .implode(",",$entries) .")"; //Create comma separate list for DB operation
+                $unlock_command = "UPDATE ".$lockdown_table." SET release_date = now() WHERE id IN ".$id_list;
+                $result = $wpdb->query($unlock_command);
+                if($result != NULL)
+                {
+                    AIOWPSecurity_Admin_Menu::show_msg_updated_st(__('The selected IP entries were unlocked successfully!','aiowpsecurity'));
+                }
             }
         } elseif ($entries != NULL)
         {
-            //Delete single record
+            $nonce=isset($_GET['aiowps_nonce'])?$_GET['aiowps_nonce']:'';
+            if (!isset($nonce) ||!wp_verify_nonce($nonce, 'unlock_ip'))
+            {
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed for unlock IP operation!",4);
+                die(__('Nonce check failed for unlock IP operation!','aiowpsecurity'));
+            }
+            
+            //Unlock single record
             $unlock_command = "UPDATE ".$lockdown_table." SET release_date = now() WHERE id = '".absint($entries)."'";
             $result = $wpdb->query($unlock_command);
             if($result != NULL)
             {
-                AIOWPSecurity_Admin_Menu::show_msg_updated_st(__('The selected IP range was unlocked successfully!','aiowpsecurity'));
+                AIOWPSecurity_Admin_Menu::show_msg_updated_st(__('The selected IP entry was unlocked successfully!','aiowpsecurity'));
             }
         }
     }
@@ -132,21 +152,30 @@ class AIOWPSecurity_List_Locked_IP extends AIOWPSecurity_List_Table {
      */
     function delete_lockdown_records($entries)
     {
-        global $wpdb;
+        global $wpdb, $aio_wp_security;
         $lockdown_table = AIOWPSEC_TBL_LOGIN_LOCKDOWN;
         if (is_array($entries))
         {
-            //Delete multiple records
-            $id_list = "(" .implode(",",$entries) .")"; //Create comma separate list for DB operation
-            $delete_command = "DELETE FROM ".$lockdown_table." WHERE id IN ".$id_list;
-            $result = $wpdb->query($delete_command);
-            if($result != NULL)
+            if (isset($_REQUEST['_wp_http_referer']))
             {
-                AIOWPSecurity_Admin_Menu::show_msg_record_deleted_st();
+                //Delete multiple records
+                $id_list = "(" .implode(",",$entries) .")"; //Create comma separate list for DB operation
+                $delete_command = "DELETE FROM ".$lockdown_table." WHERE id IN ".$id_list;
+                $result = $wpdb->query($delete_command);
+                if($result != NULL)
+                {
+                    AIOWPSecurity_Admin_Menu::show_msg_record_deleted_st();
+                }
             }
         } 
         elseif ($entries != NULL)
         {
+            $nonce=isset($_GET['aiowps_nonce'])?$_GET['aiowps_nonce']:'';
+            if (!isset($nonce) ||!wp_verify_nonce($nonce, 'delete_lockdown_record'))
+            {
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed for delete lockdown record operation!",4);
+                die(__('Nonce check failed for delete lockdown record operation!','aiowpsecurity'));
+            }
             //Delete single record
             $delete_command = "DELETE FROM ".$lockdown_table." WHERE id = '".absint($entries)."'";
             $result = $wpdb->query($delete_command);
@@ -175,12 +204,13 @@ class AIOWPSecurity_List_Locked_IP extends AIOWPSecurity_List_Table {
 
 	/* -- Ordering parameters -- */
 	    //Parameters that are going to be used to order the result
-	$orderby = !empty($_GET["orderby"]) ? mysql_real_escape_string($_GET["orderby"]) : 'lockdown_date';
-	$order = !empty($_GET["order"]) ? mysql_real_escape_string($_GET["order"]) : 'DESC';
+        isset($_GET["orderby"]) ? $orderby = strip_tags($_GET["orderby"]): $orderby = '';
+        isset($_GET["order"]) ? $order = strip_tags($_GET["order"]): $order = '';
+
+	$orderby = !empty($orderby) ? esc_sql($orderby) : 'lockdown_date';
+	$order = !empty($order) ? esc_sql($order) : 'DESC';
 
 	$data = $wpdb->get_results("SELECT * FROM $lockdown_table_name WHERE release_date > now() ORDER BY $orderby $order", ARRAY_A);
-        //$data = $wpdb->get_results("SELECT ID, floor((UNIX_TIMESTAMP(release_date)-UNIX_TIMESTAMP(now()))/60) AS minutes_left, ".
-	//				"failed_login_IP FROM $lockdown_table_name WHERE release_date > now()", ARRAY_A);
         $current_page = $this->get_pagenum();
         $total_items = count($data);
         $data = array_slice($data,(($current_page-1)*$per_page),$per_page);

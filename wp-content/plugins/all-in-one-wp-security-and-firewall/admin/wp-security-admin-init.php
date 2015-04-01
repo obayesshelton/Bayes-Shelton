@@ -10,14 +10,17 @@ class AIOWPSecurity_Admin_Init
     var $settings_menu;
     var $user_accounts_menu;
     var $user_login_menu;
+    var $user_registration_menu;
     var $db_security_menu;
     var $filesystem_menu;
     var $whois_menu;
     var $blacklist_menu;
     var $firewall_menu;
+    var $brute_force_menu;
     var $maintenance_menu;
     var $spam_menu;
     var $filescan_menu;
+    var $misc_menu;
 
     function __construct()
     {
@@ -101,13 +104,42 @@ class AIOWPSecurity_Admin_Init
     
     function do_other_admin_side_init_tasks()
     {
-        if (isset($_GET['page']) && $_GET['page'] == AIOWPSEC_FIREWALL_MENU_SLUG && isset($_GET['tab']) && $_GET['tab'] == 'tab4')
+        global $aio_wp_security;
+        
+        //***New Feature improvement for Cookie Based Brute Force Protection***//
+        //The old "test cookie" used to be too easy to guess because someone could just read the code and get the value. 
+        //So now we will drop a more secure test cookie using a 10 digit random string
+
+        if($aio_wp_security->configs->get_value('aiowps_enable_brute_force_attack_prevention')=='1'){
+            // This code is for users who had this feature saved using an older release. This will drop the new more secure test cookie to the browser and will write it to the .htaccess file too
+            $test_cookie = $aio_wp_security->configs->get_value('aiowps_cookie_brute_test');
+            if(empty($test_cookie)){
+                $random_suffix = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(10);
+                $test_cookie_name = 'aiowps_cookie_test_'.$random_suffix;
+                $aio_wp_security->configs->set_value('aiowps_cookie_brute_test',$test_cookie_name);
+                $aio_wp_security->configs->save_config();//save the value
+                AIOWPSecurity_Utility::set_cookie_value($test_cookie_name, "1");
+
+                //Write this new cookie to the .htaccess file
+                $res = AIOWPSecurity_Utility_Htaccess::write_to_htaccess();
+                if($res == -1){
+                    $aio_wp_security->debug_logger->log_debug("Error writing new test cookie with random suffix to .htaccess file!",4);
+                }
+
+            }
+        }
+        //For cookie test form submission case
+        if (isset($_GET['page']) && $_GET['page'] == AIOWPSEC_BRUTE_FORCE_MENU_SLUG && isset($_GET['tab']) && $_GET['tab'] == 'tab2')
         {
             global $aio_wp_security;
             if(isset($_POST['aiowps_do_cookie_test_for_bfla'])){
-                AIOWPSecurity_Utility::set_cookie_value("aiowps_cookie_test", "1");
-                $cur_url = "admin.php?page=".AIOWPSEC_FIREWALL_MENU_SLUG."&tab=tab4";
-                $redirect_url = AIOWPSecurity_Utility::add_query_data_to_url($cur_url, "aiowps_cookie_test", "1");
+                $random_suffix = AIOWPSecurity_Utility::generate_alpha_numeric_random_string(10);
+                $test_cookie_name = 'aiowps_cookie_test_'.$random_suffix;
+                $aio_wp_security->configs->set_value('aiowps_cookie_brute_test',$test_cookie_name);
+                $aio_wp_security->configs->save_config();//save the value
+                AIOWPSecurity_Utility::set_cookie_value($test_cookie_name, "1");
+                $cur_url = "admin.php?page=".AIOWPSEC_BRUTE_FORCE_MENU_SLUG."&tab=tab2";
+                $redirect_url = AIOWPSecurity_Utility::add_query_data_to_url($cur_url, 'aiowps_cookie_test', "1");
                 AIOWPSecurity_Utility::redirect_to_url($redirect_url);
             }
             
@@ -122,7 +154,8 @@ class AIOWPSecurity_Admin_Init
 
             if(isset($_REQUEST['aiowps_cookie_test']))
             {
-                $cookie_val = AIOWPSecurity_Utility::get_cookie_value("aiowps_cookie_test");
+                $test_cookie = $aio_wp_security->configs->get_value('aiowps_cookie_brute_test');
+                $cookie_val = AIOWPSecurity_Utility::get_cookie_value($test_cookie);
                 if(empty($cookie_val))
                 {
                     $aio_wp_security->configs->set_value('aiowps_cookie_test_success','');
@@ -143,10 +176,25 @@ class AIOWPSecurity_Admin_Init
                 $aio_wp_security->debug_logger->log_debug("Nonce check failed on wp_config file save!",4);
                 die("Nonce check failed on wp_config file save!");
             }
-            $wp_config_path = ABSPATH . 'wp-config.php';
-            $result = AIOWPSecurity_Utility_File::backup_a_file($wp_config_path); //Backup the wp_config.php file
+            $wp_config_path = AIOWPSecurity_Utility_File::get_wp_config_file_path();
+            $result = AIOWPSecurity_Utility_File::backup_and_rename_wp_config($wp_config_path); //Backup the wp_config.php file
             AIOWPSecurity_Utility_File::download_a_file_option1($wp_config_path, "wp-config-backup.txt");
         }
+        
+        //Handle export settings
+        if(isset($_POST['aiowps_export_settings']))//Do form submission tasks
+        {
+            $nonce=$_REQUEST['_wpnonce'];
+            if (!wp_verify_nonce($nonce, 'aiowpsec-export-settings-nonce'))
+            {
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed on export AIOWPS settings!",4);
+                die("Nonce check failed on export AIOWPS settings!");
+            }
+            $config_data = get_option('aio_wp_security_configs');
+            $output = json_encode($config_data);
+            AIOWPSecurity_Utility_File::download_content_to_a_file($output);            
+        }
+        
     }
     
     function create_admin_menus()
@@ -157,15 +205,16 @@ class AIOWPSecurity_Admin_Init
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Settings', 'aiowpsecurity'),  __('Settings', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_SETTINGS_MENU_SLUG, array(&$this, 'handle_settings_menu_rendering'));
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('User Accounts', 'aiowpsecurity'),  __('User Accounts', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_USER_ACCOUNTS_MENU_SLUG, array(&$this, 'handle_user_accounts_menu_rendering'));
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('User Login', 'aiowpsecurity'),  __('User Login', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_USER_LOGIN_MENU_SLUG, array(&$this, 'handle_user_login_menu_rendering'));
+        add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('User Registration', 'aiowpsecurity'),  __('User Registration', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_USER_REGISTRATION_MENU_SLUG, array(&$this, 'handle_user_registration_menu_rendering'));
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Database Security', 'aiowpsecurity'),  __('Database Security', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_DB_SEC_MENU_SLUG, array(&$this, 'handle_database_menu_rendering'));
         if (AIOWPSecurity_Utility::is_multisite_install() && get_current_blog_id() != 1){
-            //Suppress the firewall menu if site is a multi site AND not the main site
+            //Suppress the Filesystem Security menu if site is a multi site AND not the main site
         }else{
             add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Filesystem Security', 'aiowpsecurity'),  __('Filesystem Security', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_FILESYSTEM_MENU_SLUG, array(&$this, 'handle_filesystem_menu_rendering'));
         }
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('WHOIS Lookup', 'aiowpsecurity'),  __('WHOIS Lookup', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_WHOIS_MENU_SLUG, array(&$this, 'handle_whois_menu_rendering'));
         if (AIOWPSecurity_Utility::is_multisite_install() && get_current_blog_id() != 1){
-            //Suppress the firewall menu if site is a multi site AND not the main site
+            //Suppress the Blacklist Manager menu if site is a multi site AND not the main site
         }else{
             add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Blacklist Manager', 'aiowpsecurity'),  __('Blacklist Manager', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_BLACKLIST_MENU_SLUG, array(&$this, 'handle_blacklist_menu_rendering'));
         }
@@ -174,6 +223,11 @@ class AIOWPSecurity_Admin_Init
         }else{
             add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Firewall', 'aiowpsecurity'),  __('Firewall', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_FIREWALL_MENU_SLUG, array(&$this, 'handle_firewall_menu_rendering'));
         }
+        if (AIOWPSecurity_Utility::is_multisite_install() && get_current_blog_id() != 1){
+            //Suppress the Brute Force menu if site is a multi site AND not the main site
+        }else{
+            add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Brute Force', 'aiowpsecurity'),  __('Brute Force', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_BRUTE_FORCE_MENU_SLUG, array(&$this, 'handle_brute_force_menu_rendering'));
+        }
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('SPAM Prevention', 'aiowpsecurity'),  __('SPAM Prevention', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_SPAM_MENU_SLUG, array(&$this, 'handle_spam_menu_rendering'));
         if (AIOWPSecurity_Utility::is_multisite_install() && get_current_blog_id() != 1){
             //Suppress the filescan menu if site is a multi site AND not the main site
@@ -181,6 +235,7 @@ class AIOWPSecurity_Admin_Init
             add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Scanner', 'aiowpsecurity'),  __('Scanner', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_FILESCAN_MENU_SLUG, array(&$this, 'handle_filescan_menu_rendering'));
         }
         add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Maintenance', 'aiowpsecurity'),  __('Maintenance', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_MAINTENANCE_MENU_SLUG, array(&$this, 'handle_maintenance_menu_rendering'));
+        add_submenu_page(AIOWPSEC_MAIN_MENU_SLUG, __('Miscellaneous', 'aiowpsecurity'),  __('Miscellaneous', 'aiowpsecurity') , AIOWPSEC_MANAGEMENT_PERMISSION, AIOWPSEC_MISC_MENU_SLUG, array(&$this, 'handle_misc_menu_rendering'));
         do_action('aiowpsecurity_admin_menu_created');
     }
         
@@ -209,6 +264,12 @@ class AIOWPSecurity_Admin_Init
         $this->user_login_menu = new AIOWPSecurity_User_Login_Menu();
     }
     
+    function handle_user_registration_menu_rendering()
+    {
+        include_once('wp-security-user-registration-menu.php');
+        $this->user_registration_menu = new AIOWPSecurity_User_Registration_Menu();
+    }
+
     function handle_database_menu_rendering()
     {
         include_once('wp-security-database-menu.php');
@@ -239,6 +300,12 @@ class AIOWPSecurity_Admin_Init
         $this->firewall_menu = new AIOWPSecurity_Firewall_Menu();
     }
     
+    function handle_brute_force_menu_rendering()
+    {
+        include_once('wp-security-brute-force-menu.php');
+        $this->brute_force_menu = new AIOWPSecurity_Brute_Force_Menu();
+    }
+
     function handle_maintenance_menu_rendering()
     {
         include_once('wp-security-maintenance-menu.php');
@@ -255,6 +322,12 @@ class AIOWPSecurity_Admin_Init
     {
         include_once('wp-security-filescan-menu.php');
         $this->filescan_menu = new AIOWPSecurity_Filescan_Menu();
+    }
+    
+    function handle_misc_menu_rendering()
+    {
+        include_once('wp-security-misc-options-menu.php');
+        $this->misc_menu = new AIOWPSecurity_Misc_Options_Menu();
     }
     
 }//End of class

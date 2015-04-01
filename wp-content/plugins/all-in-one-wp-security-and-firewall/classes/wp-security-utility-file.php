@@ -26,6 +26,18 @@ class AIOWPSecurity_Utility_File
 
     }
     
+    static function get_wp_config_file_path()
+    {
+        $wp_config_file = ABSPATH . 'wp-config.php';
+        if(file_exists($wp_config_file)){
+            return $wp_config_file;
+        }
+        else if (file_exists(dirname( ABSPATH ) . '/wp-config.php')){       
+            return dirname( ABSPATH ) . '/wp-config.php';
+        }
+        return $wp_config_file;
+    }
+    
     static function write_content_to_file($file_path, $new_contents)
     {
         @chmod($file_path, 0777);
@@ -51,7 +63,81 @@ class AIOWPSecurity_Utility_File
             return false;
         }
         return true;
-    } 
+    }
+
+    static function backup_and_rename_wp_config($src_file_path, $prefix = 'backup')
+    {
+        global $aio_wp_security;
+        
+        //Check to see if the main "backups" directory exists - create it otherwise
+        $aiowps_backup_dir = WP_CONTENT_DIR.'/'.AIO_WP_SECURITY_BACKUPS_DIR_NAME;
+        if (!AIOWPSecurity_Utility_File::create_dir($aiowps_backup_dir))
+        {
+            $aio_wp_security->debug_logger->log_debug("backup_and_rename_wp_config - Creation of backup directory failed!",4);
+            return false;
+        }
+        
+        $src_parts = pathinfo($src_file_path);
+        $backup_file_name = $prefix . '.' . $src_parts['basename'];
+        
+        $backup_file_path = $aiowps_backup_dir . '/' . $backup_file_name;
+        if (!copy($src_file_path, $backup_file_path)) {
+            //Failed to make a backup copy
+            return false;
+        }
+        return true;
+    }
+    
+    static function backup_and_rename_htaccess($src_file_path, $suffix = 'backup')
+    {
+        global $aio_wp_security;
+        
+        //Check to see if the main "backups" directory exists - create it otherwise
+        $aiowps_backup_dir = WP_CONTENT_DIR.'/'.AIO_WP_SECURITY_BACKUPS_DIR_NAME;
+        if (!AIOWPSecurity_Utility_File::create_dir($aiowps_backup_dir))
+        {
+            $aio_wp_security->debug_logger->log_debug("backup_and_rename_htaccess - Creation of backup directory failed!",4);
+            return false;
+        }
+        
+        $src_parts = pathinfo($src_file_path);
+        $backup_file_name = $src_parts['basename'] . '.' . $suffix;
+        
+        $backup_file_path = $aiowps_backup_dir . '/' . $backup_file_name;
+        if (!copy($src_file_path, $backup_file_path)) {
+            //Failed to make a backup copy
+            return false;
+        }
+        return true;
+    }
+
+    //Function which reads entire contents of a file and stores serialized contents into our global_meta table
+    static function backup_file_contents_to_db($src_file_path, $key_description)
+    {
+        global $wpdb, $aio_wp_security;
+        $file_contents = AIOWPSecurity_Utility_File::get_file_contents($src_file_path);
+        
+        $payload = serialize($file_contents);
+        $date_time = current_time('mysql');
+        $data = array('date_time' => $date_time, 'meta_key1' => $key_description, 'meta_value2' => $payload);
+
+        //First check if a backup entry already exists in the global_meta table
+        $aiowps_global_meta_tbl_name = AIOWPSEC_TBL_GLOBAL_META_DATA;
+        $resultset = $wpdb->get_row("SELECT * FROM $aiowps_global_meta_tbl_name WHERE meta_key1 = '$key_description'", OBJECT);
+        if($resultset){
+            $where = array('meta_key1' => $key_description);
+            $res = $wpdb->update($aiowps_global_meta_tbl_name, $data, $where);
+        }else{
+            $res = $wpdb->insert($aiowps_global_meta_tbl_name, $data);
+        }
+
+        if($res === false)
+        {
+            $aio_wp_security->debug_logger->log_debug("AIOWPSecurity_Utility_File::backup_file_contents_to_db() - Unable to write entry to DB",4);
+        }
+        return;
+    }
+    
     
     static function recursive_file_search($pattern='*', $flags = 0, $path='')
     {
@@ -135,6 +221,21 @@ class AIOWPSecurity_Utility_File
         //ob_clean();
         //flush();
         readfile($file);
+        exit;
+    }
+    
+    static function download_content_to_a_file($output, $file_name = '')
+    {
+        if(empty($file_name)){$file_name = "aiowps_" . date("Y-m-d_H-i", time()).".txt";}
+
+        header("Content-Encoding: UTF-8");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Description: File Transfer");
+        header("Content-type: application/octet-stream");
+        header("Content-disposition: attachment; filename=" . $file_name);
+        header("Content-Transfer-Encoding: binary");
+        header("Content-Length: " . strlen($output));
+        echo $output;
         exit;
     }
     
@@ -287,5 +388,26 @@ class AIOWPSecurity_Utility_File
         }
         return $res;
     }
+
+    static function get_attachment_id_from_url($attachment_url = '')
+    {
+        global $wpdb;
+        $attachment_id = false;
+
+        // If there is no url, return.
+        if ('' == $attachment_url)return;
+
+        // Get the upload directory paths
+        $upload_dir_paths = wp_upload_dir();
+
+        // Make sure the upload path base directory exists in the attachment URL, to verify that we're working with a media library image
+        if (false !== strpos($attachment_url, $upload_dir_paths['baseurl'])) {
+            // Remove the upload path base directory from the attachment URL
+            $attachment_url = str_replace( $upload_dir_paths['baseurl'] . '/', '', $attachment_url );
+            // Now run custom database query to get attachment ID from attachment URL
+            $attachment_id = $wpdb->get_var( $wpdb->prepare( "SELECT wposts.ID FROM $wpdb->posts wposts, $wpdb->postmeta wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment'", $attachment_url ) );
+        }
+        return $attachment_id;
+    }    
     
 }

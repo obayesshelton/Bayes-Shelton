@@ -5,12 +5,12 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
     var $menu_page_slug = AIOWPSEC_FILESCAN_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'File Change Detection', 
-        );
+    var $menu_tabs;
 
     var $menu_tabs_handler = array(
-        'tab1' => 'render_tab1', 
+        'tab1' => 'render_tab1',
+        'tab2' => 'render_tab2',
+        'tab3' => 'render_tab3',
         );
     
     function __construct() 
@@ -18,6 +18,15 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
         $this->render_menu_page();
     }
     
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+            'tab1' => __('File Change Detection','aiowpsecurity'),
+            'tab2' => __('Malware Scan','aiowpsecurity'),
+            'tab3' => __('DB Scan','aiowpsecurity'), 
+        );
+    }
+
     function get_current_tab() 
     {
         $tab_keys = array_keys($this->menu_tabs);
@@ -46,6 +55,7 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -78,6 +88,14 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
             $this->display_last_scan_results();
         }
 
+        if (isset($_POST['aiowps_view_last_fcd_results']))
+        {
+            //Display the last scan results
+            if (!$this->display_last_scan_results()){
+                $this->show_msg_updated(__('There have been no file changes since the last scan.', 'aiowpsecurity'));
+            }
+        }
+
         if (isset($_POST['aiowps_manual_fcd_scan']))
         {
             $nonce=$_REQUEST['_wpnonce'];
@@ -87,17 +105,14 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
                 die(__('Nonce check failed for manual file change detection scan operation!','aiowpsecurity'));
             }
 
-            $result = $aio_wp_security->filescan_obj->execute_file_change_detection_scan();
+            $result = $aio_wp_security->scan_obj->execute_file_change_detection_scan();
             //If this is first scan display special message
             if ($result['initial_scan'] == 1)
             {
                 $this->show_msg_updated(__('The plugin has detected that this is your first file change detection scan. The file details from this scan will be used to detect file changes for future scans!','aiowpsecurity'));
+            }else if(!$aio_wp_security->configs->get_value('aiowps_fcds_change_detected')){
+                $this->show_msg_updated(__('Scan Complete - There were no file changes detected!', 'aiowpsecurity'));
             }
-//            else
-//            {
-//                $aio_wp_security->debug_logger->log_debug("Manual File Change Detection scan operation failed!",4);
-//                $this->show_msg_error(__('Manual File Change Detection scan operation failed!','aiowpsecurity'));
-//            }
         }
 
         if(isset($_POST['aiowps_schedule_fcd_scan']))//Do form submission tasks
@@ -184,7 +199,7 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
                 $aiowps_global_meta_tbl_name = AIOWPSEC_TBL_GLOBAL_META_DATA;
                 $where = array('meta_key1' => 'file_change_detection', 'meta_value1' => 'file_scan_data');
                 $wpdb->delete( $aiowps_global_meta_tbl_name, $where);
-                $result = $aio_wp_security->filescan_obj->execute_file_change_detection_scan();
+                $result = $aio_wp_security->scan_obj->execute_file_change_detection_scan();
                 $new_scan_alert = __('NEW SCAN COMPLETED: The plugin has detected that you have made changes to the "File Types To Ignore" or "Files To Ignore" fields.
                     In order to ensure that future scan results are accurate, the old scan data has been refreshed.', 'aiowpsecurity');
                 $this->show_msg_updated($new_scan_alert);
@@ -204,6 +219,16 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
 
         
         ?>
+        <div class="aio_blue_box">
+            <?php
+            echo '<p>'.__('If given an opportunity hackers can insert their code or files into your system which they can then use to carry out malicious acts on your site.', 'aiowpsecurity').
+            '<br />'.__('Being informed of any changes in your files can be a good way to quickly prevent a hacker from causing damage to your website.', 'aiowpsecurity').
+            '<br />'.__('In general, WordPress core and plugin files and file types such as ".php" or ".js" should not change often and when they do, it is important that you are made aware when a change occurs and which file was affected.', 'aiowpsecurity').
+            '<br />'.__('The "File Change Detection Feature" will notify you of any file change which occurs on your system, including the addition and deletion of files by performing a regular automated or manual scan of your system\'s files.', 'aiowpsecurity').
+            '<br />'.__('This feature also allows you to exclude certain files or folders from the scan in cases where you know that they change often as part of their normal operation. (For example log files and certain caching plugin files may change often and hence you may choose to exclude such files from the file change detection scan)', 'aiowpsecurity').'</p>';
+            ?>
+        </div>
+
         <div class="postbox">
         <h3><label for="title"><?php _e('Manual File Change Detection Scan', 'aiowpsecurity'); ?></label></h3>
         <div class="inside">
@@ -218,7 +243,20 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
         </form>
         </div></div>
         <div class="postbox">
-        <h3><label for="title"><?php _e('Automated File Change Detection', 'aiowpsecurity'); ?></label></h3>
+        <h3><label for="title"><?php _e('View Last Saved File Change Results', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
+        <form action="" method="POST">
+        <?php wp_nonce_field('aiowpsec-view-last-fcd-results-nonce'); ?>
+        <table class="form-table">
+            <tr valign="top">
+            <span class="description"><?php _e('Click the button below to view the saved file change results from the last scan.', 'aiowpsecurity'); ?></span>                
+            </tr>            
+        </table>
+        <input type="submit" name="aiowps_view_last_fcd_results" value="<?php _e('View Last File Change', 'aiowpsecurity')?>" class="button-primary" />
+        </form>
+        </div></div>
+        <div class="postbox">
+        <h3><label for="title"><?php _e('File Change Detection Settings', 'aiowpsecurity'); ?></label></h3>
         <div class="inside">
         <?php
         //Display security info badge
@@ -238,7 +276,7 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
             </tr>            
             <tr valign="top">
                 <th scope="row"><?php _e('Scan Time Interval', 'aiowpsecurity')?>:</th>
-                <td><input size="5" name="aiowps_fcd_scan_frequency" value="<?php echo $aio_wp_security->configs->get_value('aiowps_fcd_scan_frequency'); ?>" />
+                <td><input type="text" size="5" name="aiowps_fcd_scan_frequency" value="<?php echo $aio_wp_security->configs->get_value('aiowps_fcd_scan_frequency'); ?>" />
                     <select id="backup_interval" name="aiowps_fcd_scan_interval">
                         <option value="0" <?php selected( $aio_wp_security->configs->get_value('aiowps_fcd_scan_interval'), '0' ); ?>><?php _e( 'Hours', 'aiowpsecurity' ); ?></option>
                         <option value="1" <?php selected( $aio_wp_security->configs->get_value('aiowps_fcd_scan_interval'), '1' ); ?>><?php _e( 'Days', 'aiowpsecurity' ); ?></option>
@@ -285,7 +323,7 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
                 <td>
                 <input name="aiowps_send_fcd_scan_email" type="checkbox"<?php if($aio_wp_security->configs->get_value('aiowps_send_fcd_scan_email')=='1') echo ' checked="checked"'; ?> value="1"/>
                 <span class="description"><?php _e('Check this if you want the system to email you if a file change was detected', 'aiowpsecurity'); ?></span>
-                <br /><input size="40" name="aiowps_fcd_scan_email_address" value="<?php echo $aio_wp_security->configs->get_value('aiowps_fcd_scan_email_address'); ?>" />
+                <br /><input type="text" size="40" name="aiowps_fcd_scan_email_address" value="<?php echo $aio_wp_security->configs->get_value('aiowps_fcd_scan_email_address'); ?>" />
                 <span class="description"><?php _e('Enter an email address', 'aiowpsecurity'); ?></span>
                 </td>
             </tr>            
@@ -297,22 +335,118 @@ class AIOWPSecurity_Filescan_Menu extends AIOWPSecurity_Admin_Menu
         <?php
     }
     
+    function render_tab2()
+    {
+        ?>
+        <div class="aio_blue_box">
+            <?php
+            echo '<h2>'.__('What is Malware?', 'aiowpsecurity').'</h2>';
+            echo '<p>'.__('The word Malware stands for Malicious Software. It can consist of things like trojan horses, adware, worms, spyware and any other undesirable code which a hacker will try to inject into your website.', 'aiowpsecurity').'</p>'.
+            '<p>'.__('Often when malware code has been inserted into your site you will normally not notice anything out of the ordinary based on appearances, but it can have a dramatic effect on your site\'s search ranking.', 'aiowpsecurity').'</p>'.
+            '<p>'.__('This is because the bots and spiders from search engines such as Google have the capability to detect malware when they are indexing the pages on your site, and consequently they can blacklist your website which will in turn affect your search rankings.', 'aiowpsecurity').'</p>';
+
+            $site_scanners_link = '<a href="http://www.site-scanners.com" target="_blank">CLICK HERE</a>';
+
+            echo '<h2>'.__('Scanning For Malware', 'aiowpsecurity').'</h2>';
+            echo '<p>'.__('Due to the constantly changing and complex nature of Malware, scanning for such things using a standalone plugin will not work reliably. This is something best done via an external scan of your site regularly.', 'aiowpsecurity').'</p>'.
+            '<p>'.__('This is why we have created an easy-to-use scanning service which is hosted off our own server which will scan your site for malware once every day and notify you if it finds anything.', 'aiowpsecurity').'</p>';
+            echo '<p>'.__('When you sign up for this service you will get the following:', 'aiowpsecurity').'</p>';
+            echo '<ul class="aiowps_admin_ul_grp1">
+                <li>'.__('Automatic Daily Scan of 1 Website','aiowpsecurity').'</li>
+                <li>'.__('Automatic Malware & Blacklist Monitoring','aiowpsecurity').'</li>
+                <li>'.__('Automatic Email Alerting','aiowpsecurity').'</li>
+                <li>'.__('Site uptime monitoring','aiowpsecurity').'</li>
+                <li>'.__('Site response time monitoring','aiowpsecurity').'</li>
+                <li>'.__('Malware Cleanup','aiowpsecurity').'</li>
+                <li>'.__('Blacklist Removal','aiowpsecurity').'</li>
+                <li>'.__('No Contract (Cancel Anytime)','aiowpsecurity').'</li>
+            </ul>';
+            echo '<p>'.sprintf(__('To learn more please %s.', 'aiowpsecurity'), $site_scanners_link).'</p>';
+            ?>
+        </div>
+
+        <?php
+    }
+    
+    function render_tab3()
+    {
+        echo '<div class="aio_blue_box">';
+        echo '<p>'.__('This feature performs a basic database scan which will look for any common suspicious-looking strings and javascript and html code in some of the Wordpress core tables.', 'aiowpsecurity');
+        echo '</div>';
+        
+        echo '<div class="aio_yellow_box">';
+        echo '<p>This feature can give you false positive result. We have temporarily deactivated this feature to make sure you don\'t lose some data on a false positive. We will re-introduced this feature after we rework it.</p>';
+        echo '</div>';
+        
+        return;//This feature is temporarily deactivated while we re-work the interface
+        
+        global $wpdb, $aio_wp_security;
+        $perform_db_scan = false;
+        if (isset($_POST['aiowps_manual_db_scan']))
+        {
+            $nonce=$_REQUEST['_wpnonce'];
+            if (!wp_verify_nonce($nonce, 'aiowpsec-manual-db-scan-nonce'))
+            {
+                $aio_wp_security->debug_logger->log_debug("Nonce check failed for manual db scan operation!",4);
+                die(__('Nonce check failed for manual db scan operation!','aiowpsecurity'));
+            }
+
+            $perform_db_scan = true;
+        }
+
+        
+        ?>
+        <div class="aio_blue_box">
+            <?php
+            $malware_scan = '<a href="admin.php?page='.AIOWPSEC_FILESCAN_MENU_SLUG.'&tab=tab2">Malware Scan</a>';
+            echo '<p>'.__('This feature will perform a basic database scan which will look for any common suspicious-looking strings and javascript and html code in some of the Wordpress core tables.', 'aiowpsecurity').
+            '<br />'.__('If the scan finds anything it will list all "potentially" malicious results but it is up to you to verify whether a result is a genuine example of a hacking attack or a false positive.', 'aiowpsecurity').
+            '<br />'.__('As well as scanning for generic strings commonly used in malicious cases, this feature will also scan for some of the known "pharma" hack entries and if it finds any it will automatically delete them.', 'aiowpsecurity').
+            '<br />'.__('The WordPress core tables scanned by this feature include: posts, postmeta, comments, links, users, usermeta, and options tables.', 'aiowpsecurity').'</p>';
+            ?>
+        </div>
+
+        <div class="postbox">
+        <h3><label for="title"><?php _e('Database Scan', 'aiowpsecurity'); ?></label></h3>
+        <div class="inside">
+        <form action="" method="POST">
+        <?php wp_nonce_field('aiowpsec-manual-db-scan-nonce'); ?>
+        <table class="form-table">
+            <tr valign="top">
+            <span class="description"><?php _e('To perform a database scan click on the button below.', 'aiowpsecurity'); ?></span>                
+            </tr>            
+        </table>
+        <input type="submit" name="aiowps_manual_db_scan" value="<?php _e('Perform DB Scan', 'aiowpsecurity')?>" class="button-primary" />
+        </form>
+        </div></div>
+        <?php
+        if ($perform_db_scan)
+        {
+            
+            $result = $aio_wp_security->scan_obj->execute_db_scan();
+            echo $result;
+//            if ($result == 1)
+//            {
+//            $error_msg = '<p>'.__('The plugin has detected that there are some potentially suspicious entries in your database.', 'aiowpsecurity').'</p>';
+//            $error_msg .= '<p>'.__('Please verify the results listed below to confirm whether the entries detected are genuinely suspicious or if they are false positives.', 'aiowpsecurity').'</p>';
+//            $this->show_msg_error($error_msg);
+//            }else{
+//                $this->show_msg_updated(__('The basic database scan was completed and no suspicious entries were detected.', 'aiowpsecurity'));
+//            }
+        }
+    }
+    
+
     /*
      * Outputs the last scan results in a postbox
      */
     function display_last_scan_results()
     {
-        global $wpdb;
-        //Let's get the results array from the DB
-        $query = "SELECT * FROM ".AIOWPSEC_TBL_GLOBAL_META_DATA." WHERE meta_key1='file_change_detection'";
-        $scan_db_data = $wpdb->get_row($query, ARRAY_A);
-        if ($scan_db_data === NULL)
+        $scan_results_unserialized = AIOWPSecurity_Scan::get_file_change_data();
+        if (!$scan_results_unserialized)
         {
-            //TODO: Failure scenario
-            return;
+            return FALSE;
         }
-        $date_last_scan = $scan_db_data['date_time'];
-        $scan_results_unserialized = maybe_unserialize($scan_db_data['meta_value5']);
         ?>
         <div class="postbox">
         <h3><label for="title"><?php _e('Latest File Change Scan Results', 'aiowpsecurity'); ?></label></h3>

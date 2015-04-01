@@ -5,9 +5,7 @@ class AIOWPSecurity_WhoIs_Menu extends AIOWPSecurity_Admin_Menu
     var $menu_page_slug = AIOWPSEC_WHOIS_MENU_SLUG;
     
     /* Specify all the tabs of this menu in the following array */
-    var $menu_tabs = array(
-        'tab1' => 'WhoIS Lookup', 
-        );
+    var $menu_tabs;
 
     var $menu_tabs_handler = array(
         'tab1' => 'render_tab1', 
@@ -18,6 +16,13 @@ class AIOWPSecurity_WhoIs_Menu extends AIOWPSecurity_Admin_Menu
         $this->render_menu_page();
     }
     
+    function set_menu_tabs() 
+    {
+        $this->menu_tabs = array(
+        'tab1' => __('WhoIS Lookup', 'aiowpsecurity'),
+        );
+    }
+
     function get_current_tab() 
     {
         $tab_keys = array_keys($this->menu_tabs);
@@ -46,6 +51,7 @@ class AIOWPSecurity_WhoIs_Menu extends AIOWPSecurity_Admin_Menu
      */
     function render_menu_page() 
     {
+        $this->set_menu_tabs();
         $tab = $this->get_current_tab();
         ?>
         <div class="wrap">
@@ -76,13 +82,12 @@ class AIOWPSecurity_WhoIs_Menu extends AIOWPSecurity_Admin_Menu
         <div class="postbox">
         <h3><label for="title"><?php _e('Perform a WHOIS Lookup for an IP or Domain Name', 'aiowpsecurity'); ?></label></h3>
         <div class="inside">
-            <p>Please click the button below to view the latest system logs:</p>
             <form action="" method="POST">
                 <?php wp_nonce_field('aiowpsec-whois-lookup-nonce'); ?>
                 <table class="form-table">
                 <tr valign="top">
                     <th scope="row"><?php _e('Enter IP Address or Domain Name', 'aiowpsecurity')?>:</th>
-                    <td><input size="20" name="aiowps_whois_lookup_field" value="<?php //echo $aio_wp_security->configs->get_value('aiowps_whois_lookup_field'); ?>" />
+                    <td><input type="text" size="20" name="aiowps_whois_lookup_field" value="<?php //echo $aio_wp_security->configs->get_value('aiowps_whois_lookup_field'); ?>" />
                     <span class="description"><?php _e('Enter an IP address or domain name. Example: 111.11.12.13 OR some-domain-name.com', 'aiowpsecurity'); ?></span>
                     </td> 
                 </tr>
